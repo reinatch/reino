@@ -12,6 +12,7 @@ import { Mesh } from "three";
 import Model from "./Capo";
 import Archer from "./archer";
 import Wildlife from "./Wildlife";
+import MyThreeComponent from "./ThreeScene";
 // function MeshComponent() {
 //   const fileUrl = "/shiba/scene.gltf";
 //   const mesh = useRef<Mesh>(null!);
@@ -39,7 +40,7 @@ export function Shiba() {
         <pointLight position={[1, 1, 1]} />
         {/* <Archer key="" position={[1, 1, 1]} /> */}
         {/* <MeshComponent /> */}
-        <Wildlife animalsQuantity={500} />
+        <MyThreeComponent />
         <color attach="background" args={["white"]} />
         <PerspectiveCamera makeDefault position={[0, 0, 18.5]} />
         {/* </Fisheye> */}

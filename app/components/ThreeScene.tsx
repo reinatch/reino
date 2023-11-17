@@ -1,148 +1,107 @@
-import React, { useEffect } from "react";
-import * as THREE from "three";
-import { GLTF, GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
-import {
-  oscSine,
-  timerLocal,
-  mix,
-  range,
-  color,
-  MeshStandardNodeMaterial,
-  OperatorNode,
-  NodeBuilder,
-} from "three/examples/jsm/nodes/Nodes";
-import {
-  roughness,
-  metalness,
-  diffuseColor,
-} from "example/node/core/PropertyNode.js";
+"use client";
 
+import React, { useEffect, useRef } from "react";
+import { Canvas, useFrame, useLoader } from "@react-three/fiber";
 import {
-  // FloatNode,
-  // ColorNode,
-  MathNode,
-} from "three/examples/jsm/nodes/Nodes";
-const colorNode = new ColorNode(new THREE.Color(0xff0000));
-let camera: THREE.PerspectiveCamera,
-  scene: THREE.Scene,
-  renderer = new THREE.WebGLRenderer({ antialias: true });
+  InstancedMesh,
+  Material,
+  NormalBufferAttributes,
+  Object3D,
+} from "three";
+import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
+import { CameraControls, PerspectiveCamera } from "@react-three/drei";
 
-let mixer: THREE.AnimationMixer, clock: THREE.Clock;
+const SuzanneModel: React.FC = () => {
+  const { scene } = useLoader(GLTFLoader, "/ferret.glb");
+  return <primitive object={scene} />;
+};
 
-function ThreeScene(): JSX.Element {
+const MyThreeComponent: React.FC = () => {
+  let mesh: InstancedMesh | undefined;
+  const amount =
+    typeof window !== "undefined"
+      ? parseInt(window.location.search.slice(1)) || 10
+      : 10;
+  const count = Math.pow(amount, 3);
+  const dummy = new Object3D();
+  const animateRef = useRef<boolean>(true);
+
+  const onWindowResize = () => {
+    const camera = mesh?.children[0] as any;
+    if (camera) {
+      camera.aspect = window.innerWidth / window.innerHeight;
+      camera.updateProjectionMatrix();
+    }
+  };
+
+  const animate = () => {
+    if (mesh && animateRef.current) {
+      const time = Date.now() * 0.001;
+
+      let i = 0;
+      const offset = (amount - 1) / 2;
+
+      for (let x = 0; x < amount; x++) {
+        for (let y = 0; y < amount; y++) {
+          for (let z = 0; z < amount; z++) {
+            dummy.position.set(offset - x, offset - y, offset - z);
+            dummy.rotation.y =
+              Math.sin(x / 4 + time) +
+              Math.sin(y / 4 + time) +
+              Math.sin(z / 4 + time);
+            dummy.rotation.z = dummy.rotation.y * 2;
+
+            dummy.updateMatrix();
+            mesh.setMatrixAt(i++, dummy.matrix);
+          }
+        }
+      }
+
+      mesh.instanceMatrix.needsUpdate = true;
+      mesh.computeBoundingSphere();
+
+      requestAnimationFrame(animate);
+    }
+  };
+
   useEffect(() => {
-    init();
+    window.addEventListener("resize", onWindowResize);
+    animate();
     return () => {
-      // Cleanup code if needed
+      window.removeEventListener("resize", onWindowResize);
+      animateRef.current = false;
     };
   }, []);
 
-  function init(): void {
-    if (typeof window !== "undefined") {
-      camera = new THREE.PerspectiveCamera(
-        50,
-        window.innerWidth / window.innerHeight,
-        0.01,
-        100
-      );
-      camera.position.set(1, 2, 3);
+  return (
+    <Canvas
+      style={{ height: "100vh", width: "100vw" }}
+      camera={{ position: [0, 0, 30] }}
+      onCreated={({ camera }) => {
+        camera.lookAt(0, 0, 0);
+      }}
+    >
+      <ambientLight intensity={(Math.PI / 2) * 5} />
+      <pointLight position={[1, 1, 1]} />
 
-      scene = new THREE.Scene();
-      camera.lookAt(0, 1, 0);
+      {/* Your 3D scene components here */}
+      {mesh && (
+        <primitive
+          object={mesh}
+          count={count}
+          ref={(ref: InstancedMesh<any, any>) => (mesh = ref as InstancedMesh)}
+        />
+      )}
 
-      clock = new THREE.Clock();
+      {/* GUI and Stats components from drei */}
+      <group>
+        <SuzanneModel />
+      </group>
 
-      const centerLight = new THREE.PointLight(0xff9900, 1, 100);
-      centerLight.position.y = 4.5;
-      centerLight.position.z = -2;
-      centerLight.power = 1700;
-      scene.add(centerLight);
+      {/* Optional: Set a background color and add a PerspectiveCamera */}
+      <color attach="background" args={["white"]} />
+    </Canvas>
+  );
+};
 
-      const cameraLight = new THREE.PointLight(0x0099ff, 1, 100);
-      cameraLight.power = 1700;
-      camera.add(cameraLight);
-      scene.add(camera);
-
-      const loader = new GLTFLoader();
-      loader.load("models/gltf/Michelle.glb", function (gltf: GLTF) {
-        const object = gltf.scene;
-
-        mixer = new THREE.AnimationMixer(object);
-
-        const action = mixer.clipAction(gltf.animations[0]);
-        action.play();
-
-        const instanceCount = 30;
-        const dummy = new THREE.Object3D();
-
-        object.traverse((child: THREE.Object3D) => {
-          if (child instanceof THREE.InstancedMesh) {
-            const oscNode = oscSine(timerLocal(0.1));
-            const roughnessNode = new MathNode(
-              colorNode.r,
-              "multiply",
-              new MathNode(colorNode.g, "multiply", colorNode.b)
-            );
-            const metalnessNode = mix(new FloatNode(0.0), range(0, 1), oscNode);
-            const colorNode = mix(
-              color(0xffffff),
-              range(new THREE.Color(0x000000), new THREE.Color(0xffffff)),
-              oscNode
-            );
-
-            const material = new MeshStandardNodeMaterial();
-            material.roughness = new OperatorNode(
-              roughnessNode,
-              OperatorNode.ADD
-            );
-            material.metalness = metalnessNode;
-            const color = new THREE.Color(0xff0000); // Set your desired color
-            material.color = color;
-
-            const instancedMesh = child as THREE.InstancedMesh;
-            instancedMesh.material = material;
-
-            instancedMesh.count = instanceCount;
-
-            for (let i = 0; i < instanceCount; i++) {
-              dummy.position.x = -200 + (i % 5) * 70;
-              dummy.position.y = Math.floor(i / 5) * -200;
-
-              dummy.updateMatrix();
-
-              instancedMesh.setMatrixAt(i, dummy.matrix);
-            }
-
-            instancedMesh.instanceMatrix.needsUpdate = true;
-          }
-        });
-
-        scene.add(object);
-      });
-
-      renderer = new THREE.WebGLRenderer({ antialias: true });
-      renderer.setPixelRatio(window.devicePixelRatio);
-      renderer.setSize(window.innerWidth, window.innerHeight);
-      renderer.setAnimationLoop(animate);
-      document.body.appendChild(renderer.domElement);
-
-      window.addEventListener("resize", onWindowResize);
-    }
-  }
-
-  function onWindowResize(): void {
-    camera.aspect = window.innerWidth / window.innerHeight;
-    camera.updateProjectionMatrix();
-    renderer.setSize(window.innerWidth, window.innerHeight);
-  }
-
-  function animate(): void {
-    const delta = clock.getDelta();
-    if (mixer) mixer.update(delta);
-    renderer.render(scene, camera);
-  }
-
-  return <></>;
-}
-
-export default ThreeScene;
+export default MyThreeComponent;
