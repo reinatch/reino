@@ -7,6 +7,7 @@ import { useFrame, useGraph, useLoader } from "@react-three/fiber";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 import { Group } from "three";
 import { SkeletonUtils } from "three-stdlib";
+const config = require("../../next.config");
 
 interface ModelProps {
   key: string;
