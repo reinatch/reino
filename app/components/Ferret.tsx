@@ -21,10 +21,7 @@ export default function Model({
   generateRandomNumber,
 }: ModelProps): JSX.Element {
   const group = useRef<Group | null>(null);
-  // const gltf = useLoader(GLTFLoader, "/ferret.glb");
-  // const { scene, materials, animations } = useGLTF('/ferret.glb') as GLTF;
-  const gltf = useLoader(GLTFLoader, "/abelC.glb");
-  // const anim = useLoader(GLTFLoader, "/capo-animation.glb");
+  const gltf = useLoader(GLTFLoader, `${config.basePath}/abelC.glb`);
   const clone = useMemo(() => SkeletonUtils.clone(gltf.scene), [gltf.scene]);
   const { nodes } = useGraph(clone);
   const { actions } = useAnimations(gltf.animations, group);
@@ -116,4 +113,4 @@ export default function Model({
     </group>
   );
 }
-useGLTF.preload("/abelC.glb");
+useGLTF.preload(`${config.basePath}/abelC.glb`);
