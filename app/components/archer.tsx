@@ -10,8 +10,8 @@ interface ModelProps {
 }
 export default function Model({}: ModelProps): JSX.Element {
   const group: RefObject<Group> = useRef<Group>(null);
-  const gltf = useLoader(GLTFLoader, "/capo-T.glb");
-  const anim = useLoader(GLTFLoader, "/capo-animation.glb");
+  const gltf = useLoader(GLTFLoader, "/abel.glb");
+  const anim = useLoader(GLTFLoader, "/aleb.glb");
   console.log(anim);
   const { actions } = useAnimations(anim.animations, group);
   const actionss = [
@@ -165,7 +165,7 @@ export default function Model({}: ModelProps): JSX.Element {
   );
 }
 
-useGLTF.preload("/capo-T.glb");
+useGLTF.preload("/abel.glb");
 
 function usePrevious<T>(value: T): React.MutableRefObject<T | null> {
   const ref = useRef<T | null>(null);

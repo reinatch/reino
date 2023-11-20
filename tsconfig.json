@@ -28,7 +28,8 @@
     "**/*.tsx",
     ".next/types/**/*.ts",
     "dist/types/**/*.ts",
-    "app/components/Loco.jsx"
+    "app/components/Loco.jsx",
+    "app/components/archer.tsx"
   ],
   "exclude": ["node_modules"]
 }

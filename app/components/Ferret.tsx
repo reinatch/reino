@@ -9,7 +9,6 @@ import { useFrame, useGraph, useLoader } from "@react-three/fiber";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 import { Group } from "three";
 import { SkeletonUtils } from "three-stdlib";
-import { VertexNormalsHelper } from "three-stdlib";
 
 interface ModelProps {
   key: string;
@@ -24,8 +23,8 @@ export default function Model({
   const group = useRef<Group | null>(null);
   // const gltf = useLoader(GLTFLoader, "/ferret.glb");
   // const { scene, materials, animations } = useGLTF('/ferret.glb') as GLTF;
-  const gltf = useLoader(GLTFLoader, "/locoO.glb");
-  const anim = useLoader(GLTFLoader, "/capo-animation.glb");
+  const gltf = useLoader(GLTFLoader, "/abelC.glb");
+  // const anim = useLoader(GLTFLoader, "/capo-animation.glb");
   const clone = useMemo(() => SkeletonUtils.clone(gltf.scene), [gltf.scene]);
   const { nodes } = useGraph(clone);
   const { actions } = useAnimations(gltf.animations, group);
@@ -68,53 +67,53 @@ export default function Model({
     >
       <group name="Scene">
         <group
-          name="Armature001"
+          name="Armature"
           position={[0, 0, 0]}
           rotation={[1.5, 0, 0]}
-          scale={1}
+          scale={100}
         >
-          <primitive object={nodes.mixamorig10Hips} />
-          <group name="Cube">
+          <primitive object={nodes.mixamorigHips} />
+          <group name="body">
             <skinnedMesh
-              name="Ch28_Body"
-              geometry={(nodes.Ch28_Body as THREE.SkinnedMesh).geometry}
-              material={(nodes.Ch28_Body as THREE.SkinnedMesh).material}
-              skeleton={(nodes.Ch28_Body as THREE.SkinnedMesh).skeleton}
+              name="bodymesh"
+              geometry={(nodes.bodymesh as THREE.SkinnedMesh).geometry}
+              material={gltf.materials["Material.003"]}
+              skeleton={(nodes.bodymesh as THREE.SkinnedMesh).skeleton}
             />
             <skinnedMesh
-              name="Ch28_Eyelashes"
-              geometry={(nodes.Ch28_Eyelashes as THREE.SkinnedMesh).geometry}
-              material={(nodes.Ch28_Hair as THREE.SkinnedMesh).material}
-              skeleton={(nodes.Ch28_Eyelashes as THREE.SkinnedMesh).skeleton}
+              name="bodymesh_1"
+              geometry={(nodes.bodymesh_1 as THREE.SkinnedMesh).geometry}
+              material={gltf.materials.bota}
+              skeleton={(nodes.bodymesh_1 as THREE.SkinnedMesh).skeleton}
             />
             <skinnedMesh
-              name="Ch28_Hair"
-              geometry={(nodes.Ch28_Hair as THREE.SkinnedMesh).geometry}
-              material={(nodes.Ch28_Hair as THREE.SkinnedMesh).material}
-              skeleton={(nodes.Ch28_Hair as THREE.SkinnedMesh).skeleton}
+              name="bodymesh_2"
+              geometry={(nodes.bodymesh_2 as THREE.SkinnedMesh).geometry}
+              material={gltf.materials.body}
+              skeleton={(nodes.bodymesh_2 as THREE.SkinnedMesh).skeleton}
             />
             <skinnedMesh
-              name="Ch28_Hoody"
-              geometry={(nodes.Ch28_Hoody as THREE.SkinnedMesh).geometry}
-              material={gltf.materials["Ch28_body"]}
-              skeleton={(nodes.Ch28_Hoody as THREE.SkinnedMesh).skeleton}
-            />
-            <skinnedMesh
-              name="Ch28_Pants"
-              geometry={(nodes.Ch28_Pants as THREE.SkinnedMesh).geometry}
-              material={gltf.materials["Ch28_body"]}
-              skeleton={(nodes.Ch28_Pants as THREE.SkinnedMesh).skeleton}
-            />
-            <skinnedMesh
-              name="Ch28_Sneakers"
-              geometry={(nodes.Ch28_Sneakers as THREE.SkinnedMesh).geometry}
-              material={gltf.materials["Ch28_body"]}
-              skeleton={(nodes.Ch28_Sneakers as THREE.SkinnedMesh).skeleton}
+              name="bodymesh_3"
+              geometry={(nodes.bodymesh_3 as THREE.SkinnedMesh).geometry}
+              material={gltf.materials["Material.006"]}
+              skeleton={(nodes.bodymesh_3 as THREE.SkinnedMesh).skeleton}
             />
           </group>
+          <skinnedMesh
+            name="hair"
+            geometry={(nodes.hair as THREE.SkinnedMesh).geometry}
+            material={gltf.materials["Material.001"]}
+            skeleton={(nodes.hair as THREE.SkinnedMesh).skeleton}
+          />
+          <skinnedMesh
+            name="head"
+            geometry={(nodes.head as THREE.SkinnedMesh).geometry}
+            material={gltf.materials["Face.002"]}
+            skeleton={(nodes.head as THREE.SkinnedMesh).skeleton}
+          />
         </group>
       </group>
     </group>
   );
 }
-useGLTF.preload("/ferret.glb");
+useGLTF.preload("/abelC.glb");

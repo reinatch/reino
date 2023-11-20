@@ -10,7 +10,7 @@ import {
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
 import { Mesh } from "three";
 import Model from "./Capo";
-import Archer from "./archer";
+// import Archer from "./archer.tsx.hold";
 import Wildlife from "./Wildlife";
 import MyThreeComponent from "./ThreeScene";
 // function MeshComponent() {

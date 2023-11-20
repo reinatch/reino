@@ -54,7 +54,11 @@ const Home: React.FC = () => {
 
   return (
     // <div tabIndex={0}>
-    <Canvas>
+    <Canvas
+      flat
+      className="h-full w-full"
+      camera={{ fov: 5, near: 0.1, far: 10000, position: [0, 20, 550] }}
+    >
       <Fisheye zoom={0}>
         <CameraControls minPolarAngle={0} maxPolarAngle={Math.PI / 1.6} />
         <ambientLight intensity={(Math.PI / 2) * 2} />
@@ -63,11 +67,11 @@ const Home: React.FC = () => {
         <Suspense fallback={null}>
           <Wildlife animalsQuantity={50} />
         </Suspense>
-        <Ground />
+        {/* <Ground /> */}
         {/* <Shadows /> */}
         <OrbitControls enableRotate={true} />
         <color attach="background" args={["white"]} />
-        <PerspectiveCamera makeDefault position={[0, 0, 100]} />
+        <PerspectiveCamera />
       </Fisheye>
     </Canvas>
     // </div>
