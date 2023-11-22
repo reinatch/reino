@@ -57,7 +57,7 @@ const Home: React.FC = () => {
     <Canvas
       flat
       className="h-full w-full"
-      camera={{ fov: 5, near: 0.1, far: 10000, position: [0, 20, 550] }}
+      camera={{ fov: 5, near: 0.1, far: 1000, position: [0, 2, 2] }}
     >
       <Fisheye zoom={0}>
         <CameraControls minPolarAngle={0} maxPolarAngle={Math.PI / 1.6} />
@@ -65,7 +65,7 @@ const Home: React.FC = () => {
 
         {/* <ambientLight intensity={0.9} /> */}
         <Suspense fallback={null}>
-          <Wildlife animalsQuantity={50} />
+          <Wildlife animalsQuantity={3} />
         </Suspense>
         {/* <Ground /> */}
         {/* <Shadows /> */}

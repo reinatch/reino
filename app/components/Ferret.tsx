@@ -12,14 +12,17 @@ import { SkeletonUtils } from "three-stdlib";
 
 interface ModelProps {
   key: string;
-  position: number[];
+  positions: number[];
   generateRandomNumber: (actions: any) => void;
+  action: string;
 }
 const actionss = ["IDLE", "WALK", "RUN"];
 export default function Model({
-  position,
+  positions,
   generateRandomNumber,
+  action,
 }: ModelProps): JSX.Element {
+  const [clock] = useState(new THREE.Clock());
   const group = useRef<Group | null>(null);
   // const gltf = useLoader(GLTFLoader, "/ferret.glb");
   // const { scene, materials, animations } = useGLTF('/ferret.glb') as GLTF;
@@ -28,9 +31,11 @@ export default function Model({
   const clone = useMemo(() => SkeletonUtils.clone(gltf.scene), [gltf.scene]);
   const { nodes } = useGraph(clone);
   const { actions } = useAnimations(gltf.animations, group);
-  const [randomNumber, setRandomNumber] = useState(0);
-  const [action, setAction] = useState(actionss[randomNumber]);
-  console.log(gltf);
+  // const [randomNumber, setRandomNumber] = useState(0);
+  // const [action, setAction] = useState(actionss[0]);
+  console.log(action);
+  const speed = 1; // Adjust the speed as needed
+  const steer = new THREE.Vector3();
   useEffect(() => {
     // Set an initial animation action
     const initialAction = actions[action];
@@ -39,26 +44,83 @@ export default function Model({
       initialAction.fadeIn(0.2);
     }
   }, [action, actions]);
+  // useFrame((state, delta) => {
+  //   const updateTranslation = () => {
+  //     switch (action) {
+  //       case "IDLE":
+  //         group.current?.translateX(0);
+  //         console.log("IDLE - No translation");
+  //         break;
+  //       case "WALK":
+  //         // Adjust the translation based on the animation state and steering
+  //         steer.set(Math.random() - 0.5, 0, Math.random() - 0.5).normalize();
+  //         steer.multiplyScalar(0.5); // Adjust the steering force
+  //         group.current?.translateOnAxis(steer, speed * delta);
+  //         console.log("WALK - Translation:", speed * delta);
+  //         break;
+  //       case "RUN":
+  //         steer.set(Math.random() - 0.5, 0, Math.random() - 0.5).normalize();
+  //         steer.multiplyScalar(1); // Adjust the steering force
+  //         group.current?.translateOnAxis(steer, speed * delta);
+  //         console.log("RUN - Translation:", speed * delta);
+  //         break;
+  //       default:
+  //         break;
+  //     }
+  //   };
+
+  //   updateTranslation();
+  // });
+  const setRandomLookAtDirection = () => {
+    group.current?.lookAt(
+      new THREE.Vector3(
+        Math.floor(Math.random() * (Math.round(Math.random()) ? 2500 : -2500)),
+        -2.5,
+        Math.floor(Math.random() * (Math.round(Math.random()) ? 2500 : -2500))
+      )
+    );
+  };
 
   useEffect(() => {
+    setRandomLookAtDirection();
+  }, []); // Initial random look-at direction
+  useEffect(() => {
     const directionInterval = setInterval(() => {
-      group.current?.lookAt(
-        new THREE.Vector3(
-          Math.floor(
-            Math.random() * (Math.round(Math.random()) ? 2500 : -2500)
-          ),
-          -2.5,
-          Math.floor(Math.random() * (Math.round(Math.random()) ? 2500 : -2500))
-        )
-      );
+      setRandomLookAtDirection();
     }, 1000 * Math.floor(Math.random() * 120));
 
     return () => clearInterval(directionInterval);
   }, [group]);
 
-  useFrame((state, delta) => {
-    group.current?.translateX(-0.5);
-  });
+  // useFrame((state, delta) => {
+  //   const updateTranslation = () => {
+  //     switch (action) {
+  //       case "IDLE":
+  //         group.current?.translateX(0);
+  //         console.log("IDLE - No translation");
+  //         break;
+  //       case "WALK":
+  //         // Adjust the translation based on the animation state
+  //         group.current?.translateX(1); // You can adjust the speed
+  //         console.log("WALK - Translation:", 1 * delta);
+  //         break;
+  //       case "RUN":
+  //         group.current?.translateX(2); // You can adjust the speed
+  //         console.log("RUN - Translation:", 2 * delta);
+  //         break;
+  //       default:
+  //         break;
+  //     }
+  //   };
+
+  //   updateTranslation();
+  // });
+  const positionVector = new THREE.Vector3(
+    positions[0],
+    positions[1],
+    positions[2]
+  );
+
   return (
     <group
       ref={group}
@@ -68,9 +130,9 @@ export default function Model({
       <group name="Scene">
         <group
           name="Armature"
-          position={[0, 0, 0]}
+          position={positionVector}
           rotation={[1.5, 0, 0]}
-          scale={100}
+          scale={1}
         >
           <primitive object={nodes.mixamorigHips} />
           <group name="body">
