@@ -338,7 +338,7 @@ backend, }, index) => (
                               />
                             </div> */}
                             <iframe  key={`frame-${index}`} className="h-[95vh] w-[80vw] margin-auto" src={link} title={titulo}></iframe>
-                            <div className="w-[20vw]" key={`k-${index}`}>
+                            <div className="w-[20vw] text-black" key={`k-${index}`}>
 
                             <p key={`ano-${index}`}>{year}</p>
                             <p key={`designer-${index}`}>{designer}</p>
