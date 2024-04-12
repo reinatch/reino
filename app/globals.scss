@@ -25,3 +25,44 @@ body {
     )
     rgb(var(--background-start-rgb));
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.taps .mantine-Tabs-root{
+  border: none;
+  width: 100%;
+  display: flex;
+}
+.taps .mantine-Tabs-list::before{
+  border: none;
+}
+.taps .mantine-Tabs-list{
+  border: none;
+  width: 50%;
+}
+.taps .mantine-Tabs-panel{
+  border: none;
+  width: 50%;
+}
+
+.mantine-tabs-tab:hover {
+  cursor: pointer;
+}

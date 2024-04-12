@@ -1,5 +1,5 @@
 "use client";
-import React, { Suspense, memo, useEffect, useState } from "react";
+import React, { Suspense, memo, useEffect, useRef, useState } from "react";
 import { Canvas } from "@react-three/fiber";
 import {
   AccumulativeShadows,
@@ -11,34 +11,71 @@ import {
 } from "@react-three/drei";
 import Wildlife from "./Wildlife";
 import { Fisheye } from "../Fisheye";
-function Ground() {
-  const gridConfig = {
-    cellSize: 10,
-    cellThickness: 0.5,
-    cellColor: "#808080",
-    sectionSize: 100,
-    sectionThickness: 0.5,
-    sectionColor: "#909090",
-    fadeDistance: 1000,
-    fadeStrength: 0.5,
-    followCamera: true,
-    infiniteGrid: true,
-  };
-  return <Grid position={[0, 0, 0]} args={[10, 10]} {...gridConfig} />;
+import { gsap } from "gsap";
+// import { TimelineLite } from "gsap";
+// function Ground() {
+//   const gridConfig = {
+//     cellSize: 10,
+//     cellThickness: 0.5,
+//     cellColor: "#808080",
+//     sectionSize: 100,
+//     sectionThickness: 0.5,
+//     sectionColor: "#909090",
+//     fadeDistance: 1000,
+//     fadeStrength: 0.5,
+//     followCamera: true,
+//     infiniteGrid: true,
+//   };
+//   return <Grid position={[0, 0, 0]} args={[10, 10]} {...gridConfig} />;
+// }
+import classes from '../styles/tabs.module.scss';
+import { Tabs } from '@mantine/core';
+interface Project {
+  titulo: string;
+  link: string;
+  year:string;
 }
 
-// const Shadows = memo(() => (
-//   <AccumulativeShadows
-//     temporal
-//     frames={100}
-//     color="#9d4b4b"
-//     colorBlend={0.5}
-//     alphaTest={0.9}
-//     scale={20}
-//   >
-//     <RandomizedLight amount={8} radius={4} position={[5, 5, -10]} />
-//   </AccumulativeShadows>
-// ));
+const data: Project[] = [
+  {
+    titulo: "artworks",
+    link: "https://artworks.pt/",
+    year: "2020",
+  },
+  {
+    titulo: "entulho",
+    link: "https://noentulho.pt/",
+    year: "2020",
+  },
+  {
+    titulo: "noentulho",
+    link: "https://noentulho.com/",
+    year: "2020",
+  },
+  {
+    titulo: "vera mota",
+    link: "https://veramota.com/",
+    year: "2020",
+  },
+  {
+    titulo: "valentina",
+    link: "https://valentinapelayoatilano.com/projects",
+    year: "2020",
+  },
+  {
+    titulo: "offworld",
+    link: "https://offworld.live/",
+    year: "2020",
+  },
+  {
+    titulo: "primeira idade",
+    link: "http://www.primeira-idade.pt/",
+    year: "2020",
+  }
+];
+
+console.log(data);
+
 interface NavbarProps {
   onControlButtonClick: () => void;
   onIncreaseAnimals: () => void;
@@ -143,6 +180,47 @@ const Home: React.FC = () => {
   const handleIncreaseAnimals = () => {
     setAnimalsQuantity((prevQuantity) => prevQuantity + 1);
   };
+
+  const accordionItemRefs: React.RefObject<HTMLDivElement>[] = data.map(() => useRef<HTMLDivElement>(null));
+
+  const [activeIndex, setActiveIndex] = useState<number | null>(null);
+
+
+
+  const staggerDayGroups = (items: NodeListOf<HTMLElement>) => {
+    const dayGroups = items;
+    const tl = gsap.timeline();
+    tl.staggerTo(dayGroups, 0.6, { opacity: 1, x: 0, delay: 0.3 }, 0.15, 0);
+  };
+
+  const handleMouseEnter = (index: number) => {
+    setActiveIndex(index);
+    const $xAccordPanels = document.querySelectorAll<HTMLElement>(".x-accordion-panel");
+    const $xAccordDayGroups = document.querySelectorAll<HTMLElement>(".x-day-group");
+    const parent = $xAccordPanels[index];
+    if (parent) {
+      const dayGroups = parent.querySelectorAll<HTMLElement>(".x-day-group");
+      $xAccordPanels.forEach(panel => panel.classList.remove("is-active"));
+      parent.classList.add("is-active");
+      staggerDayGroups(dayGroups);
+    }
+  };
+
+  useEffect(() => {
+    const $xAccordDayGroups = document.querySelectorAll<HTMLElement>(".x-day-group");
+    const hideDayGroups = () => {
+      console.log("Hiding all day groups");
+      const tl = gsap.timeline();
+      tl.to($xAccordDayGroups, 0, { opacity: 0, x: -50 });
+    };
+
+    hideDayGroups();
+
+    return () => {
+      // Clean up any resources or event listeners if necessary
+    };
+  }, []);
+
   return (
     // <div tabIndex={0}>
     <div className="h-screen flex flex-col w-full overflow-hidden">
@@ -166,10 +244,53 @@ const Home: React.FC = () => {
           <PerspectiveCamera />
         </Fisheye>
       </Canvas>
-      <Navbar
+      <div className="x-accordion absolute tabs w-screen overflow-hidden">
+      <Tabs defaultValue="item-0" variant="unstyled" classNames={classes} className="overflow-hidden">
+                        <Tabs.List className="relative ">
+                  {data.map(({ titulo, link }, index) => (
+                    
+                    <Tabs.Tab value={`item-${index}`} className="mix-blend-exclusion h-[10vh]">
+                              <span className="text-[2em] text-yellow-500 font-Ogg ">{titulo}</span> 
+                              <span className="icon text-[2em]"> →</span>
+                              </Tabs.Tab>
+                           
+                           ))}
+                           </Tabs.List>
+                           
+                        {data.map(({ titulo, link,year }, index) => (
+                           <Tabs.Panel className="faq-item faq-item--section-0 accordion__section h-full w-[80vw] flex justify-center" value={`item-${index}`} >
+                        <div className="accordion__question header">
+                        <div className="tab-body p-0 overflow-hidden [transition:all_0.3s_ease]" >
+                          <div className="tab-content">
+                      
+                            {/* <div >
+                              <img
+                                v-for="(logo, index) in filme.acf.financiamento.logos"
+                                className="img-responsive"
+                                v-bind:src="logo.sizes.thumbnail"
+                                fluid-grow
+                                alt="logo.name"
+                              />
+                            </div> */}
+                            <iframe className="h-[90vh] w-[80vw] margin-auto" src={link} title={titulo}></iframe>
+                            <p>{year}</p>
+                          </div>
+                        </div>
+                        </div>
+                      </Tabs.Panel>
+                     ))}
+                     
+      
+
+                      </Tabs>
+                                 </div>
+
+
+      
+      {/* <Navbar
         onControlButtonClick={handleControlButtonClick}
         onIncreaseAnimals={handleIncreaseAnimals}
-      />
+      /> */}
     </div>
   );
 };
