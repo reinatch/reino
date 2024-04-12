@@ -187,39 +187,39 @@ const Home: React.FC = () => {
 
 
 
-  const staggerDayGroups = (items: NodeListOf<HTMLElement>) => {
-    const dayGroups = items;
-    const tl = gsap.timeline();
-    tl.staggerTo(dayGroups, 0.6, { opacity: 1, x: 0, delay: 0.3 }, 0.15, 0);
-  };
+  // const staggerDayGroups = (items: NodeListOf<HTMLElement>) => {
+  //   const dayGroups = items;
+  //   const tl = gsap.timeline();
+  //   tl.staggerTo(dayGroups, 0.6, { opacity: 1, x: 0, delay: 0.3 }, 0.15, 0);
+  // };
 
-  const handleMouseEnter = (index: number) => {
-    setActiveIndex(index);
-    const $xAccordPanels = document.querySelectorAll<HTMLElement>(".x-accordion-panel");
-    const $xAccordDayGroups = document.querySelectorAll<HTMLElement>(".x-day-group");
-    const parent = $xAccordPanels[index];
-    if (parent) {
-      const dayGroups = parent.querySelectorAll<HTMLElement>(".x-day-group");
-      $xAccordPanels.forEach(panel => panel.classList.remove("is-active"));
-      parent.classList.add("is-active");
-      staggerDayGroups(dayGroups);
-    }
-  };
+  // const handleMouseEnter = (index: number) => {
+  //   setActiveIndex(index);
+  //   const $xAccordPanels = document.querySelectorAll<HTMLElement>(".x-accordion-panel");
+  //   const $xAccordDayGroups = document.querySelectorAll<HTMLElement>(".x-day-group");
+  //   const parent = $xAccordPanels[index];
+  //   if (parent) {
+  //     const dayGroups = parent.querySelectorAll<HTMLElement>(".x-day-group");
+  //     $xAccordPanels.forEach(panel => panel.classList.remove("is-active"));
+  //     parent.classList.add("is-active");
+  //     staggerDayGroups(dayGroups);
+  //   }
+  // };
 
-  useEffect(() => {
-    const $xAccordDayGroups = document.querySelectorAll<HTMLElement>(".x-day-group");
-    const hideDayGroups = () => {
-      console.log("Hiding all day groups");
-      const tl = gsap.timeline();
-      tl.to($xAccordDayGroups, 0, { opacity: 0, x: -50 });
-    };
+  // useEffect(() => {
+  //   const $xAccordDayGroups = document.querySelectorAll<HTMLElement>(".x-day-group");
+  //   const hideDayGroups = () => {
+  //     console.log("Hiding all day groups");
+  //     const tl = gsap.timeline();
+  //     tl.to($xAccordDayGroups, 0, { opacity: 0, x: -50 });
+  //   };
 
-    hideDayGroups();
+  //   hideDayGroups();
 
-    return () => {
-      // Clean up any resources or event listeners if necessary
-    };
-  }, []);
+  //   return () => {
+  //     // Clean up any resources or event listeners if necessary
+  //   };
+  // }, []);
 
   return (
     // <div tabIndex={0}>
