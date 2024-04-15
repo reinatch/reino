@@ -1,25 +1,25 @@
-"use client";
+'use client';
 
-import React, { useEffect, useRef } from "react";
-import { Canvas, useFrame, useLoader } from "@react-three/fiber";
+import React, { useEffect, useRef } from 'react';
+import { Canvas, useFrame, useLoader } from '@react-three/fiber';
 import {
   InstancedMesh,
   Material,
   NormalBufferAttributes,
   Object3D,
-} from "three";
-import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
-import { CameraControls, PerspectiveCamera } from "@react-three/drei";
+} from 'three';
+import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
+import { CameraControls, PerspectiveCamera } from '@react-three/drei';
 
 const SuzanneModel: React.FC = () => {
-  const { scene } = useLoader(GLTFLoader, "/ferret.glb");
+  const { scene } = useLoader(GLTFLoader, '/ferret.glb');
   return <primitive object={scene} />;
 };
 
 const MyThreeComponent: React.FC = () => {
   let mesh: InstancedMesh | undefined;
   const amount =
-    typeof window !== "undefined"
+    typeof window !== 'undefined'
       ? parseInt(window.location.search.slice(1)) || 10
       : 10;
   const count = Math.pow(amount, 3);
@@ -65,17 +65,17 @@ const MyThreeComponent: React.FC = () => {
   };
 
   useEffect(() => {
-    window.addEventListener("resize", onWindowResize);
+    window.addEventListener('resize', onWindowResize);
     animate();
     return () => {
-      window.removeEventListener("resize", onWindowResize);
+      window.removeEventListener('resize', onWindowResize);
       animateRef.current = false;
     };
   }, []);
 
   return (
     <Canvas
-      style={{ height: "100vh", width: "100vw" }}
+      style={{ height: '100vh', width: '100vw' }}
       camera={{ position: [0, 0, 30] }}
       onCreated={({ camera }) => {
         camera.lookAt(0, 0, 0);
@@ -99,7 +99,7 @@ const MyThreeComponent: React.FC = () => {
       </group>
 
       {/* Optional: Set a background color and add a PerspectiveCamera */}
-      <color attach="background" args={["white"]} />
+      <color attach='background' args={['white']} />
     </Canvas>
   );
 };

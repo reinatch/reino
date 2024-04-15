@@ -1,6 +1,6 @@
-"use client";
-import React, { Suspense, memo, useEffect, useRef, useState } from "react";
-import { Canvas } from "@react-three/fiber";
+'use client';
+import React, { Suspense, memo, useEffect, useRef, useState } from 'react';
+import { Canvas } from '@react-three/fiber';
 import {
   AccumulativeShadows,
   CameraControls,
@@ -8,10 +8,21 @@ import {
   OrbitControls,
   PerspectiveCamera,
   RandomizedLight,
-} from "@react-three/drei";
-import Wildlife from "./Wildlife";
-import { Fisheye } from "../Fisheye";
-import { gsap } from "gsap";
+} from '@react-three/drei';
+import Wildlife from './Wildlife';
+import { Fisheye } from '../Fisheye';
+import { gsap } from 'gsap';
+
+import {
+  Lato,
+  Six_Caps,
+  Archivo_Black,
+  Cinzel,
+  Abril_Fatface,
+  Playfair_Display_SC,
+  Yeseva_One
+} from 'next/font/google';
+
 // import { TimelineLite } from "gsap";
 // function Ground() {
 //   const gridConfig = {
@@ -30,6 +41,39 @@ import { gsap } from "gsap";
 // }
 import classes from '../styles/tabs.module.scss';
 import { Tabs } from '@mantine/core';
+
+const six = Six_Caps({
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-six',
+  weight: '400',
+});
+
+const abril = Yeseva_One({
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-abril',
+  weight: '400',
+});
+const archivo = Archivo_Black({
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-archivo',
+  weight: '400',
+});
+const cinzel = Cinzel({
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-cinzel',
+  weight: '400',
+});
+const lato = Lato({
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-lato',
+  weight: '400',
+});
+
 interface Project {
   titulo: string;
   link: string;
@@ -41,101 +85,107 @@ interface Project {
   designer: string;
 }
 
-
 const data: Project[] = [
   {
-    titulo: "artworks",
-    link: "https://artworks.pt/",
-    year: "2020",
-    category: "Category 1",
-    frontend: "React, TypeScript",
-    backend: "Node.js, Express",
-    designer: "Luisa Martelo",
-    content: "Artworks is a project aimed at showcasing creative works of various artists. It utilizes React and TypeScript for the frontend, with Node.js and Express powering the backend. Luisa Martelo, a talented designer, was instrumental in shaping the project's visual aesthetics."
+    titulo: 'artworks',
+    link: 'https://artworks.pt/',
+    year: '2020',
+    category: 'Category 1',
+    frontend: 'React, TypeScript',
+    backend: 'Node.js, Express',
+    designer: 'Luisa Martelo',
+    content:
+      "Artworks is a project aimed at showcasing creative works of various artists. It utilizes React and TypeScript for the frontend, with Node.js and Express powering the backend. Luisa Martelo, a talented designer, was instrumental in shaping the project's visual aesthetics.",
   },
   {
-    titulo: "entulho",
-    link: "https://noentulho.pt/",
-    year: "2020",
-    category: "Category 2",
-    frontend: "Vue.js, JavaScript",
-    backend: "Django, Python",
-    designer: "Luisa Martelo",
-    content: "Entulho is an innovative platform designed to manage construction debris efficiently. It leverages Vue.js and JavaScript on the frontend, while Django and Python handle the backend operations. Luisa Martelo's design expertise brought a modern and user-friendly interface to the project."
+    titulo: 'entulho',
+    link: 'https://noentulho.pt/',
+    year: '2020',
+    category: 'Category 2',
+    frontend: 'Vue.js, JavaScript',
+    backend: 'Django, Python',
+    designer: 'Luisa Martelo',
+    content:
+      "Entulho is an innovative platform designed to manage construction debris efficiently. It leverages Vue.js and JavaScript on the frontend, while Django and Python handle the backend operations. Luisa Martelo's design expertise brought a modern and user-friendly interface to the project.",
   },
   {
-    titulo: "noentulho",
-    link: "https://noentulho.com/",
-    year: "2020",
-    category: "Category 1",
-    frontend: "Angular, JavaScript",
-    backend: "Ruby on Rails",
-    designer: "Luisa Martelo",
-    content: "NoEntulho is a community-driven initiative to promote eco-friendly waste management practices. It utilizes Angular and JavaScript for the frontend, with Ruby on Rails powering the backend services. Luisa Martelo's design sensibilities ensured an intuitive user experience for the platform."
+    titulo: 'noentulho',
+    link: 'https://noentulho.com/',
+    year: '2020',
+    category: 'Category 1',
+    frontend: 'Angular, JavaScript',
+    backend: 'Ruby on Rails',
+    designer: 'Luisa Martelo',
+    content:
+      "NoEntulho is a community-driven initiative to promote eco-friendly waste management practices. It utilizes Angular and JavaScript for the frontend, with Ruby on Rails powering the backend services. Luisa Martelo's design sensibilities ensured an intuitive user experience for the platform.",
   },
   {
-    titulo: "joana perez",
-    link: "https://joana-peres.com/",
-    year: "2020",
-    category: "Category 1",
-    frontend: "Angular, JavaScript",
-    backend: "Ruby on Rail",
-    designer: "Luisa Marteo",
-    content: "Joana Perez is a personal portfolio website showcasing the creative works of an aspiring artist. It's built using Angular and JavaScript for the frontend, with Ruby on Rails handling the backend functionalities. Luisa Martelo's design vision brought elegance and sophistication to the portfolio."
+    titulo: 'joana perez',
+    link: 'https://joana-peres.com/',
+    year: '2020',
+    category: 'Category 1',
+    frontend: 'Angular, JavaScript',
+    backend: 'Ruby on Rail',
+    designer: 'Luisa Marteo',
+    content:
+      "Joana Perez is a personal portfolio website showcasing the creative works of an aspiring artist. It's built using Angular and JavaScript for the frontend, with Ruby on Rails handling the backend functionalities. Luisa Martelo's design vision brought elegance and sophistication to the portfolio.",
   },
   {
-    titulo: "vera mota",
-    link: "https://veramota.com/",
-    year: "2020",
-    category: "Category 3",
-    frontend: "HTML, CSS",
-    backend: "PHP, Laravel",
-    designer: "Luisa Martelo",
-    content: "Vera Mota is a fashion e-commerce platform offering a curated collection of trendy clothing and accessories. It's crafted using HTML and CSS for the frontend, with PHP and Laravel powering the backend operations. Luisa Martelo's design flair infused the platform with style and elegance."
+    titulo: 'vera mota',
+    link: 'https://veramota.com/',
+    year: '2020',
+    category: 'Category 3',
+    frontend: 'HTML, CSS',
+    backend: 'PHP, Laravel',
+    designer: 'Luisa Martelo',
+    content:
+      "Vera Mota is a fashion e-commerce platform offering a curated collection of trendy clothing and accessories. It's crafted using HTML and CSS for the frontend, with PHP and Laravel powering the backend operations. Luisa Martelo's design flair infused the platform with style and elegance.",
   },
   {
-    titulo: "valentina",
-    link: "https://valentinapelayoatilano.com/projects",
-    year: "2020",
-    category: "Category 2",
-    frontend: "React, JavaScript",
-    backend: "Firebase",
-    designer: "Luisa Martelo",
-    content: "Valentina is a social networking application connecting people with similar interests and hobbies. It's developed using React and JavaScript for the frontend, with Firebase providing the backend services. Luisa Martelo's design prowess gave the app a vibrant and engaging look."
+    titulo: 'valentina',
+    link: 'https://valentinapelayoatilano.com/projects',
+    year: '2020',
+    category: 'Category 2',
+    frontend: 'React, JavaScript',
+    backend: 'Firebase',
+    designer: 'Luisa Martelo',
+    content:
+      "Valentina is a social networking application connecting people with similar interests and hobbies. It's developed using React and JavaScript for the frontend, with Firebase providing the backend services. Luisa Martelo's design prowess gave the app a vibrant and engaging look.",
   },
   {
-    titulo: "offworld",
-    link: "https://offworld.live/",
-    year: "2020",
-    category: "Category 3",
-    frontend: "Vue.js, TypeScript",
-    backend: "Java, Spring Boot",
-    designer: "Luisa Martelo",
-    content: "Offworld is a gaming platform offering an immersive virtual reality experience for gamers. It's built using Vue.js and TypeScript on the frontend, with Java and Spring Boot powering the backend infrastructure. Luisa Martelo's design ingenuity elevated the platform's visual appeal."
+    titulo: 'offworld',
+    link: 'https://offworld.live/',
+    year: '2020',
+    category: 'Category 3',
+    frontend: 'Vue.js, TypeScript',
+    backend: 'Java, Spring Boot',
+    designer: 'Luisa Martelo',
+    content:
+      "Offworld is a gaming platform offering an immersive virtual reality experience for gamers. It's built using Vue.js and TypeScript on the frontend, with Java and Spring Boot powering the backend infrastructure. Luisa Martelo's design ingenuity elevated the platform's visual appeal.",
   },
   {
-    titulo: "primeira idade",
-    link: "http://www.primeira-idade.pt/",
-    year: "2020",
-    category: "Category 1",
-    frontend: "Angular, TypeScript",
-    backend: "Node.js, Express",
-    designer: "Luisa Martelo",
-    content: "Primeira Idade is an educational platform designed to provide learning resources for children. It's developed using Angular and TypeScript for the frontend, with Node.js and Express handling the backend functionalities. Luisa Martelo's creative design approach made learning fun and interactive for kids."
+    titulo: 'primeira idade',
+    link: 'http://www.primeira-idade.pt/',
+    year: '2020',
+    category: 'Category 1',
+    frontend: 'Angular, TypeScript',
+    backend: 'Node.js, Express',
+    designer: 'Luisa Martelo',
+    content:
+      "Primeira Idade is an educational platform designed to provide learning resources for children. It's developed using Angular and TypeScript for the frontend, with Node.js and Express handling the backend functionalities. Luisa Martelo's creative design approach made learning fun and interactive for kids.",
   },
   {
-    titulo: "luisa martelo",
-    link: "http://www.primeira-idade.pt/",
-    year: "2020",
-    category: "Category 2",
-    frontend: "React, TypeScript",
-    backend: "Ruby on Rails",
-    designer: "Luisa Martelo",
-    content: "Luisa Martelo is a personal portfolio website showcasing the diverse design projects undertaken by Luisa Martelo. It's built using React and TypeScript for the frontend, with Ruby on Rails powering the backend services. Luisa Martelo's design expertise shines through in every aspect of the portfolio."
-  }
+    titulo: 'luisa martelo',
+    link: 'http://www.primeira-idade.pt/',
+    year: '2020',
+    category: 'Category 2',
+    frontend: 'React, TypeScript',
+    backend: 'Ruby on Rails',
+    designer: 'Luisa Martelo',
+    content:
+      "Luisa Martelo is a personal portfolio website showcasing the diverse design projects undertaken by Luisa Martelo. It's built using React and TypeScript for the frontend, with Ruby on Rails powering the backend services. Luisa Martelo's design expertise shines through in every aspect of the portfolio.",
+  },
 ];
-
-
 
 console.log(data);
 
@@ -161,26 +211,26 @@ const Navbar: React.FC<NavbarProps> = ({
   const handleProjectClick = () => {
     // Add your logic for handling project click
     // For example, navigating to a project page
-    console.log("Project clicked");
+    console.log('Project clicked');
     closeProjectsDropdown();
   };
 
   return (
-    <div className="fixed bottom-0 left-1/2 transform -translate-x-1/2 p-4 bg-white shadow-md">
-      <div className="relative inline-block">
+    <div className='fixed bottom-0 left-1/2 -translate-x-1/2 transform bg-white p-4 shadow-md'>
+      <div className='relative inline-block'>
         <button
-          className="bg-black hover:bg-gray-700 text-white font-bold py-2 px-4 rounded"
+          className='rounded bg-black px-4 py-2 font-bold text-white hover:bg-gray-700'
           onClick={toggleProjectsDropdown}
         >
           Projects
         </button>
         {isProjectsDropdownOpen && (
-          <div className="absolute left-0 bottom-[2em] bg-white border rounded shadow-lg">
+          <div className='absolute bottom-[2em] left-0 rounded border bg-white shadow-lg'>
             {/* Main projects menu */}
             <ul>
               <li>
                 <button
-                  className="block px-4 py-2 text-gray-800 hover:bg-gray-200"
+                  className='block px-4 py-2 text-gray-800 hover:bg-gray-200'
                   onClick={handleProjectClick}
                 >
                   Project 1
@@ -188,7 +238,7 @@ const Navbar: React.FC<NavbarProps> = ({
               </li>
               <li>
                 <button
-                  className="block px-4 py-2 text-gray-800 hover:bg-gray-200"
+                  className='block px-4 py-2 text-gray-800 hover:bg-gray-200'
                   onClick={handleProjectClick}
                 >
                   Project 2
@@ -198,22 +248,22 @@ const Navbar: React.FC<NavbarProps> = ({
             </ul>
 
             {/* Submenu */}
-            <div className="py-2 px-4">
-              <p className="text-gray-500 text-sm">Submenu Item 1</p>
-              <p className="text-gray-500 text-sm">Submenu Item 2</p>
+            <div className='px-4 py-2'>
+              <p className='text-sm text-gray-500'>Submenu Item 1</p>
+              <p className='text-sm text-gray-500'>Submenu Item 2</p>
               {/* Add more submenu items as needed */}
             </div>
           </div>
         )}
       </div>
       <button
-        className="bg-red-900 hover:bg-red-700 text-white font-bold py-2 px-4 rounded ml-2"
+        className='ml-2 rounded bg-red-900 px-4 py-2 font-bold text-white hover:bg-red-700'
         onClick={onControlButtonClick}
       >
         about
       </button>
       <button
-        className="ml-2 bg-green-900 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
+        className='ml-2 rounded bg-green-900 px-4 py-2 font-bold text-white hover:bg-green-700'
         onClick={onIncreaseAnimals}
       >
         Add
@@ -230,25 +280,25 @@ const Home: React.FC = () => {
       //if (e.key === 'c') showAllys();
     };
 
-    document.addEventListener("keydown", keyHandler);
+    document.addEventListener('keydown', keyHandler);
 
     return () => {
-      document.removeEventListener("keydown", keyHandler);
+      document.removeEventListener('keydown', keyHandler);
     };
   }, []);
   const handleControlButtonClick = () => {
     // Implement the logic to control the instance
-    console.log("Control button clicked");
+    console.log('Control button clicked');
   };
   const handleIncreaseAnimals = () => {
     setAnimalsQuantity((prevQuantity) => prevQuantity + 1);
   };
 
-  const accordionItemRefs: React.RefObject<HTMLDivElement>[] = data.map(() => useRef<HTMLDivElement>(null));
+  const accordionItemRefs: React.RefObject<HTMLDivElement>[] = data.map(() =>
+    useRef<HTMLDivElement>(null)
+  );
 
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
-
-
 
   // const staggerDayGroups = (items: NodeListOf<HTMLElement>) => {
   //   const dayGroups = items;
@@ -286,10 +336,10 @@ const Home: React.FC = () => {
 
   return (
     // <div tabIndex={0}>
-    <div className="h-screen flex flex-col w-full overflow-hidden">
+    <div className='flex h-screen w-full flex-col overflow-hidden'>
       <Canvas
         flat
-        className="flex-grow"
+        className='flex-grow'
         camera={{ fov: 5, near: 0.1, far: 1000, position: [0, 150, 125] }}
       >
         <Fisheye zoom={0}>
@@ -303,32 +353,58 @@ const Home: React.FC = () => {
           {/* <Ground /> */}
           {/* <Shadows /> */}
           <OrbitControls enableRotate={true} />
-          <color attach="background" args={["white"]} />
+          <color attach='background' args={['white']} />
           <PerspectiveCamera />
         </Fisheye>
       </Canvas>
-      <div className="x-accordion absolute tabs w-screen overflow-hidden">
-      <Tabs defaultValue="item-0" variant="unstyled" classNames={classes} className="overflow-hidden">
-                        <Tabs.List className="relative ">
-                  {data.map(({ titulo, link }, index) => (
-                    
-                    <Tabs.Tab value={`item-${index}`} className="mix-blend-exclusion " key={`o-${index}`}>
-                              <span className="text-[1vw] text-yellow-500 font-Ogg ">{titulo}</span> 
-                              <span className="icon text-[2em]"> →</span>
-                              </Tabs.Tab>
-                           
-                           ))}
-                           </Tabs.List>
-                           
-                        {data.map(({ titulo, link,year,designer,content,category,
-frontend,
-backend, }, index) => (
-                           <Tabs.Panel className="faq-item faq-item--section-0 accordion__section h-full w-screen flex justify-between" value={`item-${index}`} key={`no-${index}`}>
-                        <div className="accordion__question header">
-                        <div className="tab-body p-0 overflow-hidden [transition:all_0.3s_ease]" >
-                          <div className="tab-content flex gap-2 ">
-                      
-                            {/* <div >
+      <div className='x-accordion tabs absolute w-screen overflow-hidden  p-4'>
+        <Tabs
+          defaultValue='item-0'
+          variant='unstyled'
+          classNames={classes}
+          className={`${lato.className}`}
+          orientation="vertical"
+        >
+          <Tabs.List className='relative p-0'>
+            {data.map(({ titulo, link }, index) => (
+              <Tabs.Tab
+                value={`item-${index}`}
+                className=''
+                key={`o-${index}`}
+              >
+                <span
+                  className={`${abril.className} text-[2vw] uppercase text-black`}
+                >
+                  {titulo}
+                </span>
+                {/* <span className='icon text-[2vw]'> →</span> */}
+              </Tabs.Tab>
+            ))}
+          </Tabs.List>
+
+          {data.map(
+            (
+              {
+                titulo,
+                link,
+                year,
+                designer,
+                content,
+                category,
+                frontend,
+                backend,
+              },
+              index
+            ) => (
+              <Tabs.Panel
+                className='faq-item faq-item--section-0 accordion__section flex  h-full w-screen justify-between pl-4'
+                value={`item-${index}`}
+                key={`no-${index}`}
+              >
+                <div className='accordion__question header'>
+                  <div className='tab-body overflow-hidden p-0 [transition:all_0.3s_ease]'>
+                    <div className='tab-content flex flex-col gap-2 '>
+                      {/* <div >
                               <img
                                 v-for="(logo, index) in filme.acf.financiamento.logos"
                                 className="img-responsive"
@@ -337,29 +413,58 @@ backend, }, index) => (
                                 alt="logo.name"
                               />
                             </div> */}
-                            <iframe  key={`frame-${index}`} className="h-[95vh] w-[80vw] margin-auto" src={link} title={titulo}></iframe>
-                            <div className="w-[20vw] text-black" key={`k-${index}`}>
+                      <iframe
+                        key={`frame-${index}`}
+                        className='margin-auto h-[60vh] w-full'
+                        src={link}
+                        title={titulo}
+                      ></iframe>
+                      <div className='w-full text-black' key={`k-${index}`}>
+                        <p
+                          className={`${lato.className} text-[1vw] w-2/3`}
+                          key={`content-${index}`}
+                        >
+                          {content}
+                        </p>
+                        
+                        <span className={` `} key={`designer-${index}`}> designed by </span>
+                        <span className={`${abril.className} text-[1vw] uppercase `} key={`designer-${index}`}>
+                         {designer}
+                        </span>
+                        <p
+                          className={`${cinzel.className} text-[1vw] uppercase `}
+                          key={`frontend-${index}`}
+                        >
+                          {frontend}
+                        </p>
+                        <p
+                          className={`${archivo.className} text-[1vw] uppercase `}
+                          key={`backend-${index}`}
+                        >
+                          {backend}
+                        </p>
+                        <p
+                          className={`${six.className}  text-[1vw] `}
+                          key={`category-${index}`}
+                        >
+                          {category}
+                        </p>
+                        <p
+                          className={`${six.className} text-[2vw] uppercase `}
+                          key={`ano-${index}`}
+                        >
+                          {year}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </Tabs.Panel>
+            )
+          )}
+        </Tabs>
+      </div>
 
-                            <p key={`ano-${index}`}>{year}</p>
-                            <p key={`designer-${index}`}>{designer}</p>
-                            <p key={`content-${index}`}>{content}</p>
-                            <p key={`frontend-${index}`}>{frontend}</p>
-                            <p key={`backend-${index}`}>{backend}</p>
-                            <p key={`category-${index}`}>{category}</p>
-                            </div>
-                          </div>
-                        </div>
-                        </div>
-                      </Tabs.Panel>
-                     ))}
-                     
-      
-
-                      </Tabs>
-                                 </div>
-
-
-      
       {/* <Navbar
         onControlButtonClick={handleControlButtonClick}
         onIncreaseAnimals={handleIncreaseAnimals}

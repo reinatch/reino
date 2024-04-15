@@ -3,12 +3,12 @@
  * https://discourse.threejs.org/t/how-to-use-three-raycaster-with-a-sphere-projected-envmap/56803/10
  */
 
-import * as THREE from "three";
-import * as React from "react";
-import { useFrame, useThree } from "@react-three/fiber";
-import { RenderCubeTexture, RenderCubeTextureApi } from "@react-three/drei";
+import * as THREE from 'three';
+import * as React from 'react';
+import { useFrame, useThree } from '@react-three/fiber';
+import { RenderCubeTexture, RenderCubeTextureApi } from '@react-three/drei';
 
-export type FisheyeProps = JSX.IntrinsicElements["mesh"] & {
+export type FisheyeProps = JSX.IntrinsicElements['mesh'] & {
   /** Zoom factor, 0..1, 0 */
   zoom?: number;
   /** Number of segments, 64 */
@@ -92,7 +92,7 @@ export function Fisheye({
         <meshBasicMaterial>
           <RenderCubeTexture
             compute={compute}
-            attach="envMap"
+            attach='envMap'
             flip
             resolution={resolution}
             ref={cubeApi}

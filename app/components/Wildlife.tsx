@@ -1,9 +1,9 @@
-"use client";
+'use client';
 
-import React, { useEffect, useRef, useState } from "react";
-import Model from "./Ferret";
-import { useFrame } from "@react-three/fiber";
-import * as THREE from "three";
+import React, { useEffect, useRef, useState } from 'react';
+import Model from './Ferret';
+import { useFrame } from '@react-three/fiber';
+import * as THREE from 'three';
 
 interface WildlifeProps {
   animalsQuantity: number;
@@ -12,7 +12,7 @@ interface WildlifeProps {
 const Wildlife: React.FC<WildlifeProps> = ({ animalsQuantity }) => {
   const group = useRef<THREE.Group>(new THREE.Group());
 
-  const actionss = ["IDLE", "WALK", "RUN"];
+  const actionss = ['IDLE', 'WALK', 'RUN'];
 
   // State to keep track of the current random animation
   const [randomNumber, setRandomNumber] = useState(0);

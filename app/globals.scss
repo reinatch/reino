@@ -24,46 +24,33 @@ body {
       rgb(var(--background-end-rgb))
     )
     rgb(var(--background-start-rgb));
-    overflow: hidden;
+  overflow: hidden;
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-.taps .mantine-Tabs-root{
+.taps .mantine-Tabs-root {
   border: none;
   width: 100%;
   display: flex;
 }
-.taps .mantine-Tabs-list::before{
+.taps .mantine-Tabs-list::before {
   border: none;
 }
-.taps .mantine-Tabs-list{
+.taps .mantine-Tabs-list {
   border: none;
   width: 50%;
+  padding: 0;
+  button{
+    padding: 0;
+  }
 }
-.taps .mantine-Tabs-panel{
+.taps .mantine-Tabs-panel {
   border: none;
   width: 50%;
 }
 
+.taps .mantine-tabs-tab {
+  padding: 0;
+}
 .mantine-tabs-tab:hover {
   cursor: pointer;
 }
