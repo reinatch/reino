@@ -1,5 +1,5 @@
 'use client';
-import React, { Suspense, memo, useEffect, useRef, useState } from 'react';
+import React, { Suspense, memo, useEffect, useState } from 'react';
 import { Canvas } from '@react-three/fiber';
 import {
   AccumulativeShadows,
@@ -294,9 +294,9 @@ const Home: React.FC = () => {
     setAnimalsQuantity((prevQuantity) => prevQuantity + 1);
   };
 
-  const accordionItemRefs: React.RefObject<HTMLDivElement>[] = data.map(() =>
-    useRef<HTMLDivElement>(null)
-  );
+  // const accordionItemRefs: React.RefObject<HTMLDivElement>[] = data.map(() =>
+  //   useRef<HTMLDivElement>(null)
+  // );
 
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
 
