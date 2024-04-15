@@ -11,7 +11,7 @@ import {
 } from "@react-three/drei";
 import Wildlife from "./Wildlife";
 import { Fisheye } from "../Fisheye";
-import { gsap } from "gsap";
+import { gsap, Power2 } from "gsap";
 // import { TimelineLite } from "gsap";
 // function Ground() {
 //   const gridConfig = {
@@ -250,40 +250,80 @@ const Home: React.FC = () => {
 
 
 
-  // const staggerDayGroups = (items: NodeListOf<HTMLElement>) => {
-  //   const dayGroups = items;
-  //   const tl = gsap.timeline();
-  //   tl.staggerTo(dayGroups, 0.6, { opacity: 1, x: 0, delay: 0.3 }, 0.15, 0);
-  // };
+  const staggerDayGroups = (items: NodeListOf<HTMLElement>) => {
+    const dayGroups = items;
+    const tl = gsap.timeline();
+    tl.staggerTo(dayGroups, 0.6, { opacity: 1, x: 0, delay: 0.3 }, 0.15, 0);
+  };
 
-  // const handleMouseEnter = (index: number) => {
-  //   setActiveIndex(index);
-  //   const $xAccordPanels = document.querySelectorAll<HTMLElement>(".x-accordion-panel");
-  //   const $xAccordDayGroups = document.querySelectorAll<HTMLElement>(".x-day-group");
-  //   const parent = $xAccordPanels[index];
-  //   if (parent) {
-  //     const dayGroups = parent.querySelectorAll<HTMLElement>(".x-day-group");
-  //     $xAccordPanels.forEach(panel => panel.classList.remove("is-active"));
-  //     parent.classList.add("is-active");
-  //     staggerDayGroups(dayGroups);
-  //   }
-  // };
+  const handleMouseEnter = (index: number) => {
+    setActiveIndex(index);
+    const $xAccordPanels = document.querySelectorAll<HTMLElement>(".x-accordion-panel");
+    const $xAccordDayGroups = document.querySelectorAll<HTMLElement>(".x-day-group");
+    const parent = $xAccordPanels[index];
+    if (parent) {
+      const dayGroups = parent.querySelectorAll<HTMLElement>(".x-day-group");
+      $xAccordPanels.forEach(panel => panel.classList.remove("is-active"));
+      parent.classList.add("is-active");
+      staggerDayGroups(dayGroups);
+    }
+  };
 
-  // useEffect(() => {
-  //   const $xAccordDayGroups = document.querySelectorAll<HTMLElement>(".x-day-group");
-  //   const hideDayGroups = () => {
-  //     console.log("Hiding all day groups");
-  //     const tl = gsap.timeline();
-  //     tl.to($xAccordDayGroups, 0, { opacity: 0, x: -50 });
-  //   };
+  useEffect(() => {
+    const $xAccordDayGroups = document.querySelectorAll<HTMLElement>(".x-day-group");
+    const hideDayGroups = () => {
+      console.log("Hiding all day groups");
+      const tl = gsap.timeline();
+      tl.to($xAccordDayGroups, 0, { opacity: 0, x: -50 });
+    };
 
-  //   hideDayGroups();
+    hideDayGroups();
 
-  //   return () => {
-  //     // Clean up any resources or event listeners if necessary
-  //   };
-  // }, []);
+    return () => {
+      // Clean up any resources or event listeners if necessary
+    };
+  }, []);
+  const isFirefox = navigator.userAgent.toLowerCase().indexOf('firefox') > -1;
 
+  useEffect(() => {
+    const $colContainers = document.querySelectorAll('.col-container');
+    const $colContainerTotal = $colContainers.length;
+    const $colBgs = document.querySelectorAll('.col-bg');
+    const colEase = Power2.easeOut;
+    const colMinScale = 1.3;
+
+    $colContainers.forEach(($colContainer, index) => {
+      const tl = gsap.timeline({ paused: true });
+
+      tl.to($colContainer, { width: `${50}vw`, ease: colEase });
+      tl.to($colContainer.querySelector('p'), { scale: 3 }, 0);
+      tl.to($colContainer.querySelector('.col-bg'), { scale: 1.2 }, 0);
+
+      $colContainers.forEach(($otherContainer, otherIndex) => {
+        if (otherIndex !== index) {
+          tl.to($otherContainer, { width: `${50 / ($colContainerTotal - 1)}vw`, ease: colEase }, 0);
+          tl.to($otherContainer.querySelector('p'), { opacity: 0.3 }, 0);
+          tl.to($otherContainer.querySelector('.col-bg'), { scale: 1.4, rotation: 0.01, force3D: true }, 0);
+          if (!isFirefox) {
+            tl.to($otherContainer.querySelector('.col-bg'), { filter: 'blur(7px)' }, 0);
+          }
+        }
+      });
+
+      const handleMouseEnter = () => {
+        tl.play();
+      };
+
+      const handleMouseLeave = () => {
+        tl.reverse();
+      };
+
+      return () => {
+        $colContainer.removeEventListener('mouseenter', handleMouseEnter);
+        $colContainer.removeEventListener('mouseleave', handleMouseLeave);
+      };
+    });
+  }, []);
   return (
     // <div tabIndex={0}>
     <div className="h-screen flex flex-col w-full overflow-hidden">
@@ -308,7 +348,7 @@ const Home: React.FC = () => {
         </Fisheye>
       </Canvas>
       <div className="x-accordion absolute tabs w-screen overflow-hidden">
-      <Tabs defaultValue="item-0" variant="unstyled" classNames={classes} className="overflow-hidden">
+      {/* <Tabs defaultValue="item-0" variant="unstyled" classNames={classes} className="overflow-hidden">
                         <Tabs.List className="relative ">
                   {data.map(({ titulo, link }, index) => (
                     
@@ -327,16 +367,7 @@ backend, }, index) => (
                         <div className="accordion__question header">
                         <div className="tab-body p-0 overflow-hidden [transition:all_0.3s_ease]" >
                           <div className="tab-content flex gap-2 ">
-                      
-                            {/* <div >
-                              <img
-                                v-for="(logo, index) in filme.acf.financiamento.logos"
-                                className="img-responsive"
-                                v-bind:src="logo.sizes.thumbnail"
-                                fluid-grow
-                                alt="logo.name"
-                              />
-                            </div> */}
+            
                             <iframe  key={`frame-${index}`} className="h-[95vh] w-[80vw] margin-auto" src={link} title={titulo}></iframe>
                             <div className="w-[20vw] text-black" key={`k-${index}`}>
 
@@ -355,8 +386,21 @@ backend, }, index) => (
                      
       
 
-                      </Tabs>
-                                 </div>
+      </Tabs> */}
+      {data.map(({ titulo, link }, index) => (
+           <div
+           key={titulo}
+           className={`x-accordion-panel ${index === activeIndex ? "is-active" : ""}`}
+           onMouseEnter={() => handleMouseEnter(index)}
+         >
+           <div className="x-accordion-content h-full">
+             <a href={link}>{titulo}</a>
+             <h3>{titulo}</h3>
+             <iframe className="h-screen w-full" src={link} title={titulo}></iframe>
+            </div>
+          </div>
+        ))}
+      </div>
 
 
       

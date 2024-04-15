@@ -67,3 +67,201 @@ body {
 .mantine-tabs-tab:hover {
   cursor: pointer;
 }
+
+
+
+
+
+
+.visuallyhidden {
+  border: 0!important;
+  clip: rect(0 0 0 0)!important;
+  height: 1px!important;
+  margin: -1px!important;
+  overflow: hidden!important;
+  padding: 0!important;
+  position: absolute!important;
+  width: 1px!important;
+}
+
+h3,
+h4,
+p {
+  margin: 0;
+  padding: 0;
+}
+
+h3 {
+  font-size: 1.125rem;
+  padding: 0 0 0.9375rem;
+  color: #f05022;
+  transition: padding 0.3s ease;
+}
+
+.h3-hover:hover {
+  padding: 0 0 0.9375rem; /* Adjust padding on hover */
+}
+
+.x-schedule-trigger {
+  display: block;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  text-decoration: none;
+  z-index: 1;
+}
+
+.x-schedule-trigger:before {
+  font-size: 18px;
+  content: "+";
+  display: block;
+  width: 1.5em;
+  height: 1.5em;
+  background: #f05022;
+  color: white;
+  line-height: 1.4em;
+  text-align: center;
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.x-day-group {
+  padding: 0.9375rem 1.5625rem;
+  will-change: opacity, transform;
+  opacity: 1;
+  transform: transformX(0);
+}
+
+.x-day-group h3 + .x-day-group {
+  padding-top: 0;
+}
+
+.is-active h3 {
+  padding: 0 1.5625rem 0.9375rem;
+}
+
+.is-active .x-schedule-trigger {
+  display: none;
+}
+
+.x-accordion {
+  display: flex;
+  overflow: hidden;
+  max-width: 100%;
+  margin: 25px auto;
+  font-size: 0.875rem;
+  line-height: 1.5;
+}
+
+.x-accordion-panel {
+  flex: initial;
+  min-width: 80px;
+  border-left: 1px solid #ccc;
+  border-right: 1px solid #ccc;
+  position: relative;
+  margin-left: -1px;
+  width: 10%;
+  will-change: width;
+  transition: 0.3s ease;
+}
+
+.x-accordion-panel:first-child {
+  margin-left: 0;
+}
+
+.x-accordion-panel.is-active {
+  width: 80%;
+}
+
+.x-accordion-content {
+  overflow: hidden;
+  padding: 1rem;
+  white-space: nowrap;
+}
+
+.x-accordion-content > *:first-child {
+  margin-top: 0;
+}
+
+.x-accordion-content h3 {
+  text-transform: uppercase;
+}
+
+.x-is-power-hour {
+  background-color: #f05022;
+  color: white;
+}
+
+/* Hover effect for h3 elements */
+.x-accordion-panel:hover h3 {
+  padding: 0 1.5625rem 0.9375rem; /* Adjust padding on hover */
+}
+
+
+
+
+
+
+
+.center-xy {
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  position: absolute;
+}
+
+// the good stuff
+.containr {
+  display: flex;
+}
+
+.col-container {
+  height: 100vh;  
+  // display: inline-block;
+  position: relative;
+  overflow: hidden;
+  // float: left;
+
+  .col-bg {
+    background-blend-mode: multiply;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 100vh;
+    content:'';
+
+    &:before {
+
+      background-size: 3px;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      position: absolute;
+      opacity: 0.8;
+      content: '';
+    }
+  }
+
+  .red {
+    // background-image: url(http://webneel.com/wallpaper/sites/default/files/images/01-2014/4-flower-wallpaper.preview.jpg);
+    background-color: #E91E63;
+  }
+  .green {
+    // background-image: url(http://cdn.wonderfulengineering.com/wp-content/uploads/2016/01/flower-wallpaper-41-610x458.jpg);
+    background-color: #009688;
+  }
+
+  .blue {
+    // background-image: url(http://webneel.com/wallpaper/sites/default/files/images/07-2013/marigolds-flower-wallpaper.preview.jpg);
+    background-color: #3f51b5;
+  }
+
+  p {
+    color: #fff;
+  }
+}
