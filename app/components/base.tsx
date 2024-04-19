@@ -432,7 +432,7 @@ const Home: React.FC = () => {
               key={`o-${titulo}`}
             >
               <span
-                  className={`font-Terminal  text-[2vw] uppercase text-black align-middle	`}
+                  className={`font-Terminal  text-[3vw] uppercase text-black align-middle	`}
                 >
 
               {titulo}
@@ -464,7 +464,7 @@ const Home: React.FC = () => {
               >
                 <div className='accordion__question header'>
                   <div className='tab-body overflow-hidden p-0 [transition:all_0.3s_ease] h-full'>
-                    <div className='tab-content flex flex-col gap-2 justify-between'>
+                    <div className='tab-content flex flex-col gap-2 justify-between h-full'>
                       {/* <div >
                               <img
                                 v-for="(logo, index) in filme.acf.financiamento.logos"
