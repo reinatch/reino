@@ -428,11 +428,11 @@ const Home: React.FC = () => {
               {about.map(({ titulo, email }, index) => (
               <Tabs.Tab
               value={`item-${titulo}`}
-              className='bottom-0 absolute'
+              className='bottom-0 absolute abot'
               key={`o-${titulo}`}
             >
               <span
-                  className={`font-Terminal  text-[2vw] uppercase text-black`}
+                  className={`font-Terminal  text-[2vw] uppercase text-black align-middle	`}
                 >
 
               {titulo}
@@ -463,8 +463,8 @@ const Home: React.FC = () => {
                 key={`no-${index}`}
               >
                 <div className='accordion__question header'>
-                  <div className='tab-body overflow-hidden p-0 [transition:all_0.3s_ease]'>
-                    <div className='tab-content flex flex-col gap-2 '>
+                  <div className='tab-body overflow-hidden p-0 [transition:all_0.3s_ease] h-full'>
+                    <div className='tab-content flex flex-col gap-2 justify-between'>
                       {/* <div >
                               <img
                                 v-for="(logo, index) in filme.acf.financiamento.logos"
@@ -474,6 +474,7 @@ const Home: React.FC = () => {
                                 alt="logo.name"
                               />
                             </div> */}
+                            <div className="separado">
                       <iframe
                         key={`frame-${index}`}
                         className='margin-auto h-[70vh] w-full'
@@ -494,7 +495,10 @@ const Home: React.FC = () => {
                         </div>
                      
                       </div>
-                      <a href={link} target="_blank" rel="noopener noreferrer" className="visit w-full text-center border-2 rounded-full border-black">
+                      
+
+                      </div>
+                      <a href={link} target="_blank" rel="noopener noreferrer" className="visit w-full text-center border-2 rounded-full border-black text-black">
                        <>visit website</> 
                       </a>
                     </div>
