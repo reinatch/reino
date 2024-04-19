@@ -416,7 +416,7 @@ const Home: React.FC = () => {
                 key={`o-${index}`}
               >
                 <span
-                  className={`font-Terminal  text-[2vw] uppercase text-black`}
+                  className={`font-Terminal  text-[3vw] uppercase text-black`}
                 >
                   {titulo}
                 </span>
@@ -491,7 +491,7 @@ const Home: React.FC = () => {
                         <p className={`font-Sligoil text-[1vw] uppercase `} key={`frontend-${index}`}>{frontend}</p>
                         <p className={`font-Sligoil text-[1vw] uppercase `} key={`backend-${index}`}>{backend}</p>
                         <p className={`font-Sligoil  text-[1vw] `} key={`category-${index}`}>{category}</p>
-                        <p className={`font-Sligoil text-[2vw] uppercase `} key={`ano-${index}`}>{year}</p>
+                        <p className={`font-Sligoil text-[1.5vw] uppercase `} key={`ano-${index}`}>{year}</p>
                         </div>
                      
                       </div>
