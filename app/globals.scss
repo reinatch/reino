@@ -9,37 +9,37 @@
 }
 @font-face {
   font-family: 'terminal';
-  src: url('/fonts/terminal-grotesque-webfont.eot');
-  src: url('/fonts/terminal-grotesque-webfont.eot?#iefix') format('embedded-opentype'),
-       url('/fonts/terminal-grotesque-webfont.woff2') format('woff2'),
-       url('/fonts/terminal-grotesque-webfont.woff') format('woff'),
-       url('/fonts/terminal-grotesque-webfont.ttf') format('truetype'),
-       url('/fonts/terminal-grotesque-webfont.svg#terminal_grotesqueregular') format('svg');
+  src: url('../public/fonts/terminal-grotesque-webfont.eot');
+  src: url('../public/fonts/terminal-grotesque-webfont.eot?#iefix') format('embedded-opentype'),
+       url('../public/fonts/terminal-grotesque-webfont.woff2') format('woff2'),
+       url('../public/fonts/terminal-grotesque-webfont.woff') format('woff'),
+       url('../public/fonts/terminal-grotesque-webfont.ttf') format('truetype'),
+       url('../public/fonts/terminal-grotesque-webfont.svg#terminal_grotesqueregular') format('svg');
   font-weight: normal;
   font-style: normal;
 
 }
 @font-face {
   font-family: 'authentic_l';
-  src: url('/fonts/autentic/AUTHENTICSans-60.woff') format('woff');
+  src: url('../public/fonts/autentic/AUTHENTICSans-60.woff') format('woff');
   font-weight: light;
   font-style: normal;
 }
 @font-face {
   font-family: 'authentic_n';
-  src: url('/fonts/autentic/AUTHENTICSans-90.woff') format('woff');
+  src: url('../public/fonts/autentic/AUTHENTICSans-90.woff') format('woff');
   font-weight: normal;
   font-style: normal;
 }
 @font-face {
   font-family: 'sligoil';
-  src: url('/fonts/Sligoil-Micro.woff2') format('woff');
+  src: url('../public/fonts/Sligoil-Micro.woff2') format('woff');
   font-weight: normal;
   font-style: normal;
 }
 @font-face {
   font-family: 'authentic_b';
-  src: url('/fonts/autentic/AUTHENTICSans-130.woff') format('woff');
+  src: url('../public/fonts/autentic/AUTHENTICSans-130.woff') format('woff');
   font-weight: bold;
   font-style: normal;
 }
