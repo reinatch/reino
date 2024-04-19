@@ -12,6 +12,7 @@ import {
 import Wildlife from './Wildlife';
 import { Fisheye } from '../Fisheye';
 import { gsap } from 'gsap';
+import localFont from 'next/font/local'
 
 import {
   Lato,
@@ -73,7 +74,30 @@ const lato = Lato({
   variable: '--font-lato',
   weight: '400',
 });
-
+// const autentic = localFont({
+//   src: [
+//     {
+//       path: 'public/fonts/autentic/AUTHENTICSans-60.woff2',
+//       weight: 'light',
+//       style: 'normal',
+//     },
+//     {
+//       path: 'public/fonts/autentic/AUTHENTICSans-90.woff2',
+//       weight: '400',
+//       style: 'italic',
+//     },
+//     {
+//       path: 'public/fonts/autentic/AUTHENTICSans-130.woff2',
+//       weight: '700',
+//       style: 'normal',
+//     },
+//     {
+//       path: 'public/fonts/autentic/AUTHENTICSans-150.woff2',
+//       weight: '700',
+//       style: 'italic',
+//     },
+//   ],
+// })
 interface Project {
   titulo: string;
   link: string;
@@ -83,6 +107,13 @@ interface Project {
   backend: string;
   content: string;
   designer: string;
+}
+interface About {
+  titulo: string;
+  email: string;
+  skills: string;
+  content: string;
+  contact: string;
 }
 
 const data: Project[] = [
@@ -185,6 +216,17 @@ const data: Project[] = [
     content:
       "Luisa Martelo is a personal portfolio website showcasing the diverse design projects undertaken by Luisa Martelo. It's built using React and TypeScript for the frontend, with Ruby on Rails powering the backend services. Luisa Martelo's design expertise shines through in every aspect of the portfolio.",
   },
+];
+const about: About[] = [
+  {
+    titulo: 'about',
+    skills: "REACT, TYPESCRIPT, NODE.JS, EXPRESS",
+    contact: "Reach out for ideas, quotes, collaborations at:",
+    email: "reinatchnatch@gmail.com",
+    content:
+      "Rei is a web designer and web developer with experience in Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quaeab illo inventore veritatis et quasi architecto beatae vitae dictasunt explicabo. Nemo enim ipsam voluptatem quia voluptas sitaspernatur aut odit aut fugit, sed quia consequuntur magni doloreseos qui ratione voluptatem sequi nesciunt.",
+  },
+  
 ];
 
 console.log(data);
@@ -357,15 +399,16 @@ const Home: React.FC = () => {
           <PerspectiveCamera />
         </Fisheye>
       </Canvas>
-      <div className='x-accordion tabs absolute w-screen overflow-hidden  p-4'>
+      <div className='x-accordion tabs absolute w-screen overflow-hidden  p-4 h-screen'>
         <Tabs
           defaultValue='item-0'
           variant='unstyled'
           classNames={classes}
-          className={`${lato.className}`}
+          className={"font-Authentic_l h-full"}
           orientation="vertical"
         >
-          <Tabs.List className='relative p-0'>
+          <Tabs.List className='relative p-0  h-full content-between'>
+          <div className="proj">
             {data.map(({ titulo, link }, index) => (
               <Tabs.Tab
                 value={`item-${index}`}
@@ -373,13 +416,31 @@ const Home: React.FC = () => {
                 key={`o-${index}`}
               >
                 <span
-                  className={`${abril.className} text-[2vw] uppercase text-black`}
+                  className={`font-Terminal  text-[2vw] uppercase text-black`}
                 >
                   {titulo}
                 </span>
                 {/* <span className='icon text-[2vw]'> →</span> */}
               </Tabs.Tab>
             ))}
+            </div>  
+            <div className="nav_footer bottom-0">
+              {about.map(({ titulo, email }, index) => (
+              <Tabs.Tab
+              value={`item-${titulo}`}
+              className='bottom-0 absolute'
+              key={`o-${titulo}`}
+            >
+              <span
+                  className={`font-Terminal  text-[2vw] uppercase text-black`}
+                >
+
+              {titulo}
+                </span>
+               </Tabs.Tab>
+            ))}
+            </div>
+            
           </Tabs.List>
 
           {data.map(
@@ -415,53 +476,49 @@ const Home: React.FC = () => {
                             </div> */}
                       <iframe
                         key={`frame-${index}`}
-                        className='margin-auto h-[60vh] w-full'
+                        className='margin-auto h-[70vh] w-full'
                         src={link}
                         title={titulo}
                       ></iframe>
-                      <div className='w-full text-black' key={`k-${index}`}>
-                        <p
-                          className={`${lato.className} text-[1vw] w-2/3`}
-                          key={`content-${index}`}
-                        >
-                          {content}
-                        </p>
-                        
+                      <div className='w-full text-black flex justify-between' key={`k-${index}`}>
+                        <div className="content w-1/2">
+                        <p className={`font-Authentic_n font-light text-[1.25vw] pb-5`} key={`content-${index}`}>  {content}</p>
+                        </div>
+                        <div className="info text-end">
                         <span className={` `} key={`designer-${index}`}> designed by </span>
-                        <span className={`${abril.className} text-[1vw] uppercase `} key={`designer-${index}`}>
-                         {designer}
-                        </span>
-                        <p
-                          className={`${cinzel.className} text-[1vw] uppercase `}
-                          key={`frontend-${index}`}
-                        >
-                          {frontend}
-                        </p>
-                        <p
-                          className={`${archivo.className} text-[1vw] uppercase `}
-                          key={`backend-${index}`}
-                        >
-                          {backend}
-                        </p>
-                        <p
-                          className={`${six.className}  text-[1vw] `}
-                          key={`category-${index}`}
-                        >
-                          {category}
-                        </p>
-                        <p
-                          className={`${six.className} text-[2vw] uppercase `}
-                          key={`ano-${index}`}
-                        >
-                          {year}
-                        </p>
+                        <span className={`font-Sligoil text-[1vw] uppercase `} key={`designer-${index}`}>{designer}</span>
+                        <p className={`font-Sligoil text-[1vw] uppercase `} key={`frontend-${index}`}>{frontend}</p>
+                        <p className={`font-Sligoil text-[1vw] uppercase `} key={`backend-${index}`}>{backend}</p>
+                        <p className={`font-Sligoil  text-[1vw] `} key={`category-${index}`}>{category}</p>
+                        <p className={`font-Sligoil text-[2vw] uppercase `} key={`ano-${index}`}>{year}</p>
+                        </div>
+                     
                       </div>
+                      <a href={link} target="_blank" rel="noopener noreferrer" className="visit w-full text-center border-2 rounded-full border-black">
+                       <>visit website</> 
+                      </a>
                     </div>
                   </div>
                 </div>
               </Tabs.Panel>
             )
           )}
+            {about.map(({ titulo, email,content, skills,contact }, index) => (
+              <Tabs.Panel
+              className='pl-[5em] bg-white '
+              value={`item-${titulo}`}
+              key={`no-${index}`}
+            >
+              <div className="content w-2/3 font-Authentic_n ">
+
+              
+             <p className='pb-8 text-xl'>{content}</p> 
+             <p className='pb-8'>skills: {skills}</p> 
+             <p>{contact}</p> 
+             <span className='underline text-l font-Sligoil'><a href="mailto:">{email}</a> </span> 
+              </div>
+               </Tabs.Panel>
+            ))}
         </Tabs>
       </div>
 
