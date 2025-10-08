@@ -12,8 +12,8 @@ const Media: React.FC<{ src: string; alt?: string; className?: string }> = ({ sr
     return (
       // fallback to placeholder
       // keep the inline rule disable only for this plain img fallback
-      // eslint-disable-next-line @next/next/no-img-element
-      <img src="/placeholders/placeholder.png" alt="placeholder" className={className} />
+  // eslint-disable-next-line @next/next/no-img-element
+  <img src="/reino/placeholders/placeholder.png" alt="placeholder" className={className} />
     );
   }
 

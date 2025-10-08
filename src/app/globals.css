@@ -28,42 +28,42 @@ body {
 /* Local font declarations matching reino_update */
 @font-face {
   font-family: 'authentic_n';
-  src: url('/fonts/autentic/AUTHENTICSans-90.woff2') format('woff2'), url('/fonts/autentic/AUTHENTICSans-90.woff') format('woff');
+  src: url('/reino/fonts/autentic/AUTHENTICSans-90.woff2') format('woff2'), url('/reino/fonts/autentic/AUTHENTICSans-90.woff') format('woff');
   font-weight: 400;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
   font-family: 'authentic_b';
-  src: url('/fonts/autentic/AUTHENTICSans-130.woff2') format('woff2'), url('/fonts/autentic/AUTHENTICSans-130.woff') format('woff');
+  src: url('/reino/fonts/autentic/AUTHENTICSans-130.woff2') format('woff2'), url('/reino/fonts/autentic/AUTHENTICSans-130.woff') format('woff');
   font-weight: 700;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
   font-family: 'authentic_l';
-  src: url('/fonts/autentic/AUTHENTICSans-60.woff2') format('woff2'), url('/fonts/autentic/AUTHENTICSans-60.woff') format('woff');
+  src: url('/reino/fonts/autentic/AUTHENTICSans-60.woff2') format('woff2'), url('/reino/fonts/autentic/AUTHENTICSans-60.woff') format('woff');
   font-weight: 300;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
   font-family: 'terminal';
-  src: url('/fonts/terminal-grotesque-webfont.woff2') format('woff2'), url('/fonts/terminal-grotesque-webfont.woff') format('woff');
+  src: url('/reino/fonts/terminal-grotesque-webfont.woff2') format('woff2'), url('/reino/fonts/terminal-grotesque-webfont.woff') format('woff');
   font-weight: 400;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
   font-family: 'sligoil';
-  src: url('/fonts/Sligoil-Micro.woff2') format('woff2'), url('/fonts/Sligoil-Micro.woff') format('woff');
+  src: url('/reino/fonts/Sligoil-Micro.woff2') format('woff2'), url('/reino/fonts/Sligoil-Micro.woff') format('woff');
   font-weight: 400;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
   font-family: 'proto';
-  src: url('/fonts/Proto Sans 54/Proto.woff') format('woff'), url('/fonts/Proto Sans 54/Proto Sans 54.otf') format('opentype');
+  src: url('/reino/fonts/Proto Sans 54/Proto.woff') format('woff'), url('/reino/fonts/Proto Sans 54/Proto Sans 54.otf') format('opentype');
   font-weight: 400;
   font-style: normal;
   font-display: swap;
@@ -72,63 +72,63 @@ body {
 /* Fonts from /public/fonts/love/ */
 @font-face {
   font-family: 'Acte';
-  src: url('/fonts/love/Acte.otf') format('opentype');
+  src: url('/reino/fonts/love/Acte.otf') format('opentype');
   font-weight: 400;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
   font-family: 'Frame';
-  src: url('/fonts/love/Frame.otf') format('opentype');
+  src: url('/reino/fonts/love/Frame.otf') format('opentype');
   font-weight: 400;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
   font-family: 'Panton';
-  src: url('/fonts/love/Panton.otf') format('opentype');
+  src: url('/reino/fonts/love/Panton.otf') format('opentype');
   font-weight: 400;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
   font-family: 'SIMPLE';
-  src: url('/fonts/love/SIMPLE.otf') format('opentype');
+  src: url('/reino/fonts/love/SIMPLE.otf') format('opentype');
   font-weight: 400;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
   font-family: 'SpaceNotoriousRounded';
-  src: url('/fonts/love/SpaceNotoriousRounded.otf') format('opentype');
+  src: url('/reino/fonts/love/SpaceNotoriousRounded.otf') format('opentype');
   font-weight: 400;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
   font-family: 'Stairs';
-  src: url('/fonts/love/Stairs.otf') format('opentype');
+  src: url('/reino/fonts/love/Stairs.otf') format('opentype');
   font-weight: 400;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
   font-family: 'der75';
-  src: url('/fonts/love/der75.otf') format('opentype');
+  src: url('/reino/fonts/love/der75.otf') format('opentype');
   font-weight: 400;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
   font-family: 'Barlow Elasticc';
-  src: url('/fonts/love/Barlow-elasticc.otf') format('opentype');
+  src: url('/reino/fonts/love/Barlow-elasticc.otf') format('opentype');
   font-weight: 400;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
   font-family: 'Ellipse';
-  src: url('/fonts/love/Ellipse.otf') format('opentype');
+  src: url('/reino/fonts/love/Ellipse.otf') format('opentype');
   font-weight: 400;
   font-style: normal;
   font-display: swap;
@@ -136,49 +136,49 @@ body {
 /* Parasitype family: multiple weights */
 @font-face {
   font-family: 'Parasitype';
-  src: url('/fonts/love/Parasitype-ExtraLight.otf') format('opentype');
+  src: url('/reino/fonts/love/Parasitype-ExtraLight.otf') format('opentype');
   font-weight: 200;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
   font-family: 'Parasitype';
-  src: url('/fonts/love/Parasitype-Light.otf') format('opentype');
+  src: url('/reino/fonts/love/Parasitype-Light.otf') format('opentype');
   font-weight: 300;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
   font-family: 'Parasitype';
-  src: url('/fonts/love/Parasitype-Regular.otf') format('opentype');
+  src: url('/reino/fonts/love/Parasitype-Regular.otf') format('opentype');
   font-weight: 400;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
   font-family: 'Parasitype';
-  src: url('/fonts/love/Parasitype-Medium.otf') format('opentype');
+  src: url('/reino/fonts/love/Parasitype-Medium.otf') format('opentype');
   font-weight: 500;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
   font-family: 'Parasitype';
-  src: url('/fonts/love/Parasitype-SemiBold.otf') format('opentype');
+  src: url('/reino/fonts/love/Parasitype-SemiBold.otf') format('opentype');
   font-weight: 600;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
   font-family: 'Parasitype';
-  src: url('/fonts/love/Parasitype-Bold.otf') format('opentype');
+  src: url('/reino/fonts/love/Parasitype-Bold.otf') format('opentype');
   font-weight: 700;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
   font-family: 'Touillette';
-  src: url('/fonts/love/Touillette-Regular.otf') format('opentype');
+  src: url('/reino/fonts/love/Touillette-Regular.otf') format('opentype');
   font-weight: 400;
   font-style: normal;
   font-display: swap;
