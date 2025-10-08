@@ -87,15 +87,20 @@ jobs:
           fi
       - name: Export static site (create ./out)
         run: |
-          if [ "${{ steps.detect-package-manager.outputs.manager }}" = "yarn" ]; then
-            # Try common yarn export script or fall back to yarn next export
-            if yarn -s run export >/dev/null 2>&1; then
-              yarn export -o ./out || yarn next export -o ./out || npx --no-install next export -o ./out
-            else
-              yarn next export -o ./out || npx --no-install next export -o ./out
-            fi
+          # Next.js 15: the build may place export in .next/export or .next/output/export.
+          if [ -d "./out" ]; then
+            echo "./out exists — skipping copy."
+          elif [ -d ".next/export" ]; then
+            echo "Copying .next/export -> ./out"
+            cp -a .next/export ./out
+          elif [ -d ".next/output/export" ]; then
+            echo "Copying .next/output/export -> ./out"
+            cp -a .next/output/export ./out
           else
-            npm run export || npx --no-install next export -o ./out || npx --no-install next export
+            echo "No export directory found. Listing .next for debugging:"
+            ls -la .next || true
+            echo "If build generated static files elsewhere, update this workflow to copy them to ./out."
+            exit 1
           fi
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3

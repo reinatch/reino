@@ -4,8 +4,8 @@
   "private": true,
   "scripts": {
     "dev": "next dev --turbopack",
-  "build": "next build --turbopack",
-  "export": "next export -o ./out",
+    "build": "next build --turbopack",
+    "export": "echo \"next export has been removed in Next.js 15; use 'next build' with output: 'export' (this command is a no-op)\" && exit 0",
     "start": "next start",
     "lint": "eslint"
   },
