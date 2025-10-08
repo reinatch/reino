@@ -76,6 +76,12 @@ jobs:
           # If source files changed but lockfiles didn't, rebuild from a prior cache.
           restore-keys: |
             ${{ runner.os }}-nextjs-${{ hashFiles('**/pnpm-lock.yaml', '**/package-lock.json', '**/yarn.lock') }}-
+      - name: Enable pnpm (Corepack)
+        if: steps.detect-package-manager.outputs.manager == 'pnpm'
+        run: |
+          # Ensure corepack is enabled and pnpm is prepared/activated on the runner
+          corepack enable
+          corepack prepare pnpm@latest --activate
       - name: Install dependencies
         run: |
           if [ "${{ steps.detect-package-manager.outputs.manager }}" = "pnpm" ]; then
