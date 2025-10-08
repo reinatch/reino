@@ -74,7 +74,9 @@ jobs:
           if [ "${{ steps.detect-package-manager.outputs.manager }}" = "yarn" ]; then
             yarn install --frozen-lockfile
           else
-            npm ci
+            # Use the same resolution strategy used when generating package-lock.json locally
+            # (we used --legacy-peer-deps) to avoid peer dependency resolution conflicts on the runner.
+            npm install --legacy-peer-deps --no-audit --no-fund
           fi
       - name: Build with Next.js
         run: |
