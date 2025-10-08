@@ -34,36 +34,23 @@ jobs:
       - name: Detect package manager
         id: detect-package-manager
         run: |
-          if [ -f "${{ github.workspace }}/pnpm-lock.yaml" ]; then
-            echo "manager=pnpm" >> $GITHUB_OUTPUT
-            echo "command=install" >> $GITHUB_OUTPUT
-            echo "runner=pnpm" >> $GITHUB_OUTPUT
-            exit 0
-          elif [ -f "${{ github.workspace }}/yarn.lock" ]; then
+          # Use npm for CI to avoid requiring pnpm on the runner. Keep yarn as fallback.
+          if [ -f "${{ github.workspace }}/yarn.lock" ]; then
             echo "manager=yarn" >> $GITHUB_OUTPUT
             echo "command=install" >> $GITHUB_OUTPUT
             echo "runner=yarn" >> $GITHUB_OUTPUT
             exit 0
-          elif [ -f "${{ github.workspace }}/package-lock.json" ]; then
+          else
             echo "manager=npm" >> $GITHUB_OUTPUT
             echo "command=ci" >> $GITHUB_OUTPUT
             echo "runner=npx --no-install" >> $GITHUB_OUTPUT
             exit 0
-          else
-            echo "Unable to determine package manager"
-            exit 1
           fi
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
           node-version: "20"
           cache: ${{ steps.detect-package-manager.outputs.manager }}
-      - name: Enable pnpm (Corepack)
-        if: steps.detect-package-manager.outputs.manager == 'pnpm'
-        run: |
-          # Ensure corepack is enabled and pnpm is prepared/activated on the runner
-          corepack enable
-          corepack prepare pnpm@latest --activate
       - name: Setup Pages
         uses: actions/configure-pages@v5
         with:
@@ -84,31 +71,29 @@ jobs:
             ${{ runner.os }}-nextjs-${{ hashFiles('**/pnpm-lock.yaml', '**/package-lock.json', '**/yarn.lock') }}-
       - name: Install dependencies
         run: |
-          if [ "${{ steps.detect-package-manager.outputs.manager }}" = "pnpm" ]; then
-            corepack enable
-            pnpm install --frozen-lockfile
-          elif [ "${{ steps.detect-package-manager.outputs.manager }}" = "yarn" ]; then
+          if [ "${{ steps.detect-package-manager.outputs.manager }}" = "yarn" ]; then
             yarn install --frozen-lockfile
           else
             npm ci
           fi
       - name: Build with Next.js
         run: |
-          if [ "${{ steps.detect-package-manager.outputs.manager }}" = "pnpm" ]; then
-            pnpm build
-          elif [ "${{ steps.detect-package-manager.outputs.manager }}" = "yarn" ]; then
+          if [ "${{ steps.detect-package-manager.outputs.manager }}" = "yarn" ]; then
             yarn build
           else
-            npx --no-install next build
+            npm run build
           fi
       - name: Export static site (create ./out)
         run: |
-          if [ "${{ steps.detect-package-manager.outputs.manager }}" = "pnpm" ]; then
-            pnpm exec next export -o ./out || pnpm exec next export
-          elif [ "${{ steps.detect-package-manager.outputs.manager }}" = "yarn" ]; then
-            yarn next export -o ./out || npx --no-install next export -o ./out || npx --no-install next export
+          if [ "${{ steps.detect-package-manager.outputs.manager }}" = "yarn" ]; then
+            # Try common yarn export script or fall back to yarn next export
+            if yarn -s run export >/dev/null 2>&1; then
+              yarn export -o ./out || yarn next export -o ./out || npx --no-install next export -o ./out
+            else
+              yarn next export -o ./out || npx --no-install next export -o ./out
+            fi
           else
-            npx --no-install next export -o ./out || npx --no-install next export
+            npm run export || npx --no-install next export -o ./out || npx --no-install next export
           fi
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
