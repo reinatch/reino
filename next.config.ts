@@ -7,6 +7,17 @@ const nextConfig: NextConfig = {
   basePath: '/reino',
   images: {
     unoptimized: true,
+    domains: [
+      'picsum.photos',
+      'artworks.pt',
+      'noentulho.com',
+      'joana-peres.com',
+      'veramota.com',
+      'valentinapelayoatilano.com',
+      'offworld.live',
+      'www.primeira-idade.pt',
+      'primeira-idade.pt'
+    ],
   },
 };
 

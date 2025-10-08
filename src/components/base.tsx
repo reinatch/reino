@@ -4,6 +4,48 @@
 
 
 import React, { useState, useEffect } from 'react';
+import Image from 'next/image';
+
+// Simple Media component: renders video elements for video files and Next Image for images/GIFs.
+const Media: React.FC<{ src: string; alt?: string; className?: string }> = ({ src, alt, className }) => {
+  const [hasError, setHasError] = useState(false);
+
+  if (!src || hasError) {
+    return (
+      // fallback to placeholder
+      // eslint-disable-next-line @next/next/no-img-element
+      <img src="/placeholders/placeholder.png" alt="placeholder" className={className} />
+    );
+  }
+
+  const lower = src.split('?')[0].toLowerCase();
+  const isVideo = lower.endsWith('.mp4') || lower.endsWith('.webm');
+  const isGif = lower.endsWith('.gif');
+
+  if (isVideo) {
+    return (
+      <video className={className} controls playsInline onError={() => setHasError(true)}>
+        <source src={src} />
+        Your browser does not support the video tag.
+      </video>
+    );
+  }
+
+  // For images/gifs, use Next/Image for optimization. Next/Image doesn't support external domains
+  // unless configured in next.config; we'll use it and allow remote images via loader if needed.
+  // For GIFs we use Image with unoptimized to preserve animation.
+  return (
+    <Image
+      src={src}
+      alt={alt || ''}
+      width={1600}
+      height={900}
+      className={className}
+      unoptimized={isGif}
+      onError={() => setHasError(true) as any}
+    />
+  );
+};
 
 interface Project {
   titulo: string;
@@ -111,17 +153,19 @@ const ProjectList: React.FC = () => {
               {data[activeIndex].preview ? (
                 Array.isArray(data[activeIndex].preview) ? (
                   <div className="rounded-lg overflow-hidden card-bg space-y-2 p-2">
-        { (data[activeIndex].preview as string[]).map((src: string, idx: number) => (
-          <img key={idx} src={src} alt={`${data[activeIndex].titulo} preview ${idx+1}`} className="w-full h-auto" onError={(e)=>{(e.target as HTMLImageElement).src='/placeholders/placeholder.png'}} />
-        ))}
+                    {(data[activeIndex].preview as string[]).map((src: string, idx: number) => (
+                      <div key={idx} className="w-full">
+                        <Media src={src} alt={`${data[activeIndex].titulo} preview ${idx + 1}`} className="w-full h-auto" />
+                      </div>
+                    ))}
                   </div>
                 ) : (
                   <div className="rounded-lg overflow-hidden card-bg">
-                        <img src={(data[activeIndex].preview as string) || `/previews/${data[activeIndex].titulo.replace(/\s+/g,'_')}.jpg`} alt={`${data[activeIndex].titulo} preview`} className="w-full h-auto object-contain" onError={(e)=>{(e.target as HTMLImageElement).src='/placeholders/placeholder.png'}} />
+                    <Media src={(data[activeIndex].preview as string) || `/previews/${data[activeIndex].titulo.replace(/\s+/g, '_')}.jpg`} alt={`${data[activeIndex].titulo} preview`} className="w-full h-auto object-contain" />
                   </div>
                 )
               ) : (
-                    <div className="rounded-lg overflow-hidden card-bg w-full h-auto" />
+                <div className="rounded-lg overflow-hidden card-bg w-full h-auto" />
               )}
             </div>
             {/* description for small screens (visible on mobile) */}
