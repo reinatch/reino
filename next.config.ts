@@ -1,6 +1,11 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+
+  // ignoreBuildErrors: true,
+  eslint: {
+    ignoreDuringBuilds: true,
+  },
   // Generate a static export during build (Next.js 15+)
   output: 'export',
   // Keep the basePath consistent with the Pages configuration

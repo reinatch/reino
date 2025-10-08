@@ -1,7 +1,5 @@
 "use client"
 
-/* eslint-disable @next/next/no-img-element */
-
 
 import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
@@ -13,6 +11,7 @@ const Media: React.FC<{ src: string; alt?: string; className?: string }> = ({ sr
   if (!src || hasError) {
     return (
       // fallback to placeholder
+      // keep the inline rule disable only for this plain img fallback
       // eslint-disable-next-line @next/next/no-img-element
       <img src="/placeholders/placeholder.png" alt="placeholder" className={className} />
     );
@@ -34,6 +33,12 @@ const Media: React.FC<{ src: string; alt?: string; className?: string }> = ({ sr
   // For images/gifs, use Next/Image for optimization. Next/Image doesn't support external domains
   // unless configured in next.config; we'll use it and allow remote images via loader if needed.
   // For GIFs we use Image with unoptimized to preserve animation.
+  // Next/Image onError receives an event — type it properly to avoid any
+  const handleImageError = (event: React.SyntheticEvent<HTMLImageElement | HTMLDivElement>) => {
+    // mark error and allow fallback to placeholder
+    setHasError(true);
+  };
+
   return (
     <Image
       src={src}
@@ -42,7 +47,7 @@ const Media: React.FC<{ src: string; alt?: string; className?: string }> = ({ sr
       height={900}
       className={className}
       unoptimized={isGif}
-      onError={() => setHasError(true) as any}
+      onError={handleImageError}
     />
   );
 };
