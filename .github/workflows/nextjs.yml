@@ -95,6 +95,15 @@ jobs:
           else
             npx --no-install next build
           fi
+      - name: Export static site (create ./out)
+        run: |
+          if [ "${{ steps.detect-package-manager.outputs.manager }}" = "pnpm" ]; then
+            pnpm exec next export -o ./out || pnpm exec next export
+          elif [ "${{ steps.detect-package-manager.outputs.manager }}" = "yarn" ]; then
+            yarn next export -o ./out || npx --no-install next export -o ./out || npx --no-install next export
+          else
+            npx --no-install next export -o ./out || npx --no-install next export
+          fi
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:

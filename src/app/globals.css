@@ -1,0 +1,290 @@
+@import "tailwindcss";
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Local font declarations matching reino_update */
+@font-face {
+  font-family: 'authentic_n';
+  src: url('/fonts/autentic/AUTHENTICSans-90.woff2') format('woff2'), url('/fonts/autentic/AUTHENTICSans-90.woff') format('woff');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'authentic_b';
+  src: url('/fonts/autentic/AUTHENTICSans-130.woff2') format('woff2'), url('/fonts/autentic/AUTHENTICSans-130.woff') format('woff');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'authentic_l';
+  src: url('/fonts/autentic/AUTHENTICSans-60.woff2') format('woff2'), url('/fonts/autentic/AUTHENTICSans-60.woff') format('woff');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'terminal';
+  src: url('/fonts/terminal-grotesque-webfont.woff2') format('woff2'), url('/fonts/terminal-grotesque-webfont.woff') format('woff');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'sligoil';
+  src: url('/fonts/Sligoil-Micro.woff2') format('woff2'), url('/fonts/Sligoil-Micro.woff') format('woff');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'proto';
+  src: url('/fonts/Proto Sans 54/Proto.woff') format('woff'), url('/fonts/Proto Sans 54/Proto Sans 54.otf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Fonts from /public/fonts/love/ */
+@font-face {
+  font-family: 'Acte';
+  src: url('/fonts/love/Acte.otf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Frame';
+  src: url('/fonts/love/Frame.otf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Panton';
+  src: url('/fonts/love/Panton.otf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'SIMPLE';
+  src: url('/fonts/love/SIMPLE.otf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'SpaceNotoriousRounded';
+  src: url('/fonts/love/SpaceNotoriousRounded.otf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Stairs';
+  src: url('/fonts/love/Stairs.otf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'der75';
+  src: url('/fonts/love/der75.otf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Barlow Elasticc';
+  src: url('/fonts/love/Barlow-elasticc.otf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Ellipse';
+  src: url('/fonts/love/Ellipse.otf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+/* Parasitype family: multiple weights */
+@font-face {
+  font-family: 'Parasitype';
+  src: url('/fonts/love/Parasitype-ExtraLight.otf') format('opentype');
+  font-weight: 200;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Parasitype';
+  src: url('/fonts/love/Parasitype-Light.otf') format('opentype');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Parasitype';
+  src: url('/fonts/love/Parasitype-Regular.otf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Parasitype';
+  src: url('/fonts/love/Parasitype-Medium.otf') format('opentype');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Parasitype';
+  src: url('/fonts/love/Parasitype-SemiBold.otf') format('opentype');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Parasitype';
+  src: url('/fonts/love/Parasitype-Bold.otf') format('opentype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Touillette';
+  src: url('/fonts/love/Touillette-Regular.otf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  --font-authentic-n: 'authentic_n', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+  --font-authentic-b: 'authentic_b', var(--font-authentic-n);
+  --font-authentic-l: 'authentic_l', var(--font-authentic-n);
+  --font-terminal: 'terminal', var(--font-authentic-n);
+  --font-sligoil: 'sligoil', var(--font-authentic-n);
+  --font-proto: 'proto', var(--font-authentic-n);
+  /* love/ fonts */
+  --font-acte: 'Acte', var(--font-authentic-n);
+  --font-frame: 'Frame', var(--font-authentic-n);
+  --font-panton: 'Panton', var(--font-authentic-n);
+  --font-simple: 'SIMPLE', var(--font-authentic-n);
+  --font-space-notorious-rounded: 'SpaceNotoriousRounded', var(--font-authentic-n);
+  --font-stairs: 'Stairs', var(--font-authentic-n);
+  --font-der75: 'der75', var(--font-authentic-n);
+  --font-barlow-elasticc: 'Barlow Elasticc', var(--font-authentic-n);
+  --font-ellipse: 'Ellipse', var(--font-authentic-n);
+  --font-parasitype: 'Parasitype', var(--font-authentic-n);
+  --font-touillette: 'Touillette', var(--font-authentic-n);
+    
+}
+
+/* Utility font classes used by the project */
+.font-Authentic_n { font-family: var(--font-authentic-n); }
+.font-Authentic_b { font-family: var(--font-authentic-b); }
+.font-Authentic_l { font-family: var(--font-authentic-l); }
+.font-Terminal { font-family: var(--font-terminal); }
+.font-Sligoil { font-family: var(--font-sligoil); }
+.font-Proto { font-family: var(--font-proto); }
+/* Utility classes for love/ fonts */
+.font-Acte { font-family: var(--font-acte); }
+.font-Frame { font-family: var(--font-frame); }
+.font-Panton { font-family: var(--font-panton); }
+.font-SIMPLE { font-family: var(--font-simple); }
+.font-SpaceNotoriousRounded { font-family: var(--font-space-notorious-rounded); }
+.font-Stairs { font-family: var(--font-stairs); }
+.font-der75 { font-family: var(--font-der75); }
+.font-BarlowElasticc { font-family: var(--font-barlow-elasticc); }
+.font-Ellipse { font-family: var(--font-ellipse); }
+.font-Parasitype { font-family: var(--font-parasitype); }
+.font-Touillette { font-family: var(--font-touillette); }
+
+/* Only palette-6 is used now (Coolors palette). Toggle the class `palette-6` on <html>. */
+
+/* Static UI variables: white backgrounds, sensible defaults for colors */
+:root {
+  --p1: #fec700; /* yellow */
+  --p2: #e32400; /* orange/red */
+  --p3: #0581fe; /* blue */
+  --bg-main: var(--p1);
+  --card-bg: var(--p1);
+  --text-main: var(--p2); /* primary text */
+  --muted: var(--p2); /* muted labels */
+  /* User palette (mapped) */
+  --accent: var(--p2); /* primary accent for buttons/links */
+  --nav-active: var(--p2); /* nav highlight */
+  --nav-inactive: var(--p2);
+  --aside-left-bg: var(--p1);
+  --aside-right-bg: var(--p1);
+  --aside-font: var(--p2);
+  background-color: var(--p1);
+}
+body {
+  background-color: var(--p1);
+}
+
+/* Helper classes that use palette variables */
+.bg-main { background: var(--bg-main); }
+.card-bg { background: var(--card-bg); }
+.text-nav-active { color: var(--nav-active);  font-size: 2em; }
+.text-nav-inactive { color: var(--nav-inactive); font-family: var(--font-der75);}
+.border-accent { border-color: var(--accent); }
+.text-accent { color: var(--accent); }
+.reinatch-logo { letter-spacing: 0.04em; }
+
+/* small helpers mapping the new palette */
+.text-p1 { color: var(--p1); }
+.text-p2 { color: var(--p2); }
+.text-p3 { color: var(--p3); }
+.bg-p1 { background: var(--p1); }
+.bg-p2 { background: var(--p2); }
+.bg-p3 { background: var(--p3); }
+
+.text-main { color: var(--text-main); }
+.text-muted { color: var(--muted); }
+
+/* Palette swatches used in the switcher */
+.palette-swatch { width: 28px; height: 18px; border-radius: 4px; border: 1px solid rgba(0,0,0,0.08); }
+.palette-swatch-btn { padding: 3px; border-radius: 6px; display:inline-flex; align-items:center; justify-content:center; }
+
+/* Aside helper classes */
+.aside-left-bg { background: var(--aside-left-bg); }
+.aside-right-bg { background: var(--aside-right-bg); }
+.text-aside { color: var(--aside-font); }
+
+/* Hide scrollbars but keep scrolling functionality across browsers */
+.no-scrollbar {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+.no-scrollbar::-webkit-scrollbar {
+  width: 0px;
+  height: 0px;
+}
