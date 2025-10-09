@@ -29,7 +29,7 @@ export const data: Project[] = [
     backend: 'Node.js, Express',
     designer: 'Luisa Martelo',
     preview: [
-      '/site_artworks.gif',
+  '/reino/site_artworks.gif',
       'https://picsum.photos/seed/artworks-2/1600/900',
       'https://picsum.photos/seed/artworks-3/1600/900'
     ],
