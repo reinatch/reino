@@ -7,15 +7,9 @@ const nextConfig: NextConfig = {
   eslint: {
     ignoreDuringBuilds: true,
   },
-  // Generate a static export during build (Next.js 15+)
-  output: 'export',
-  // Keep the basePath consistent with the Pages configuration
-  basePath: '/reino',
-  // When deploying to GitHub Pages, static assets need the repo path prefix
-  // so set assetPrefix to the same value as basePath. trailingSlash ensures
-  // exported files land under directories which Pages serves correctly.
-  assetPrefix: '/reino',
-  trailingSlash: true,
+  // Build settings: this project is typically served from the domain root
+  // when deployed to your own server, so do not force a basePath or static
+  // export here. Keep images unoptimized for external domains.
   images: {
     unoptimized: true,
     domains: [
